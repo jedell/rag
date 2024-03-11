@@ -5,13 +5,11 @@ from generate import generate
 from retriever.index import init_index, build_index
 from transformers import AutoModel, AutoTokenizer
 from pathlib import Path
-
+from utils import load_documents
 
 def main(generator_path: str, documents_path: str):
 
     embed_dim = 512
-
-    state_dict = torch.load(generator_path)
 
     generator_tokenizer = Tokenizer(str(Path(generator_path) / "tokenizer.model"))
     retriever_tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased', model_max_length=8192)
