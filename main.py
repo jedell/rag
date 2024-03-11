@@ -37,6 +37,7 @@ def main(generator_path: str, documents_path: str):
     print(compl)
 
     
+main("_model", "data")
 
 
 
