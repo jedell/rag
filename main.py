@@ -1,4 +1,3 @@
-import torch
 from mistral.model import Transformer as Mistral
 from mistral.tokenizer import Tokenizer
 from generate import generate
@@ -9,7 +8,7 @@ from utils import load_documents
 
 def main(generator_path: str, documents_path: str):
 
-    embed_dim = 512
+    embed_dim = 768
 
     generator_tokenizer = Tokenizer(str(Path(generator_path) / "tokenizer.model"))
     retriever_tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased', model_max_length=8192)
@@ -23,20 +22,23 @@ def main(generator_path: str, documents_path: str):
     index = init_index(embed_dim)
 
     # load documents into index
-    documents = load_documents(documents_path)
+    documents = load_documents(documents_path, 2048)
+    print("Chunks len", len(documents))
 
     build_index(index, documents, retriever, retriever_tokenizer)
 
     prompt = "What is the meaning of life?"
 
-    compl, logprobs = generate([prompt], 
+    compl, logprobs, context, distance = generate([prompt], 
                               generator, generator_tokenizer, 
                               retriever, retriever_tokenizer, 
-                              index)
+                              index, documents)
     
-    print(compl)
+    print("Context:", context)
+    print("Prompt:", prompt)
+    print("Completion:", compl)
+    print("Distance:", distance)
 
-    
 main("_model", "data")
 
 

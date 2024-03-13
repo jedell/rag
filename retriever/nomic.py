@@ -56,6 +56,7 @@ def embed(inputs, retriever, matryoshka_dim=None, eval=True):
         embeded_inputs = retriever(**inputs)
 
     embeddings = mean_pooling(embeded_inputs, inputs['attention_mask'])
+
     if matryoshka_dim is not None:
         embeddings = F.layer_norm(embeddings, normalized_shape=(embeddings.shape[1],))
         embeddings = embeddings[:, :matryoshka_dim]
