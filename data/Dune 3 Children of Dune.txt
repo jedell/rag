@@ -51,7 +51,7 @@ Muad'Dib's teachings have become the playground of scholastics, of the superstit
     Stilgar removed his hand from the knife. His fingers tingled with remembrance of it. But the blade which once had glistened in a sandworm's gaping mouth remained in its sheath. Stilgar knew he would not draw this blade now to kill the twins. He had reached a decision. Better to retain that one old virtue which he still cherished: loyalty. Better the complexities one thought he knew than the complexities which defied understanding. Better the now than the future of a dream. The bitter taste in his mouth told Stilgar how empty and revolting some dreams could be.
     No! No more dreams!
 
-= = = = = =
+===
 
 CHALLENGE: "Have you seen The Preacher?" 
 RESPONSE: "I have seen a sandworm."
@@ -152,7 +152,7 @@ RESPONSE: "Because Shai-Hulud [sandworm deified] orders it."
     "So her memory within me urges," Leto said.
     Ghanima met his gaze. Then: "Too much knowledge never makes for simple decisions."
 
-= = = = = =
+===
 
 The sietch at the desert's rim 
 Was Liet's, was Kynes's, 
@@ -201,7 +201,7 @@ But the sietch endures.
     "We shall see," Alia muttered.
     She felt the ornithopter touch down on the roof of her Keep, a positive and jarring punctuation which filled her with grim anticipation.
 
-= = = = = =
+===
 
 melange (me'-lange also ma,lanj) n-s, origin uncertain (thought to derive from ancient Terran Franzh): a. mixture of spices; b. spice of Arrakis (Dune) with geriatric properties first noted by Yanshuph Ashkoko, royal chemist in reign of Shakkad the Wise; Arrakeen melange, found only in deepest desert sands of Arrakis, linked to prophetic visions of Paul Muad'Dib (Atreides), first Fremen Mahdi; also employed by Spacing Guild Navigators and the Bene Gesserit.
 -Dictionary Royal fifth edition
@@ -232,7 +232,7 @@ melange (me'-lange also ma,lanj) n-s, origin uncertain (thought to derive from a
     "Very good, then. Transport is being sent for you. We will sign off now."
     The Levenbrech stood and stretched. He refrained from looking directly off to the high ground on his left where a telltale glitter had revealed the location of the transeye, which had relayed his fine performance to his Bashar far away in the green lands of the Capitol. The Levenbrech smiled. There would be a promotion for this day's work. Already he could feel a Bator's insignia at his neck -- and someday, Burseg . . . Even, one day, Bashar. People who served well in the corps of Farad'n, grandson of the late Shaddam IV, earned rich promotions. One day, when the Prince was seated on his rightful throne, there would be even greater promotions. A Bashar's rank might not be the end of it. There were Baronies and Earldoms to be had on the many worlds of this realm . . . once the twin Atreides were removed.
 
-= = = = = =
+===
 
 The Fremen must return to his original faith, to his genius in forming human communities; he must return to the past, where that lesson of survival was learned in the struggle with Arrakis. The only business of the Fremen should be that of opening his soul to the inner teachings. The worlds of the Imperium, the Landsraad and the CHOAM Confederacy have no message to give him. They will only rob him of his soul.
 -The Preacher at Arrakeen
@@ -310,7 +310,7 @@ The Fremen must return to his original faith, to his genius in forming human com
     Jessica thought: Good. He's a businessman above all else. Once we've determined the proper coinage, we'll buy him. And she found herself enjoying the fact that he insisted on his precious ceremony. This little victory would give him power with his fellows, and they both knew it. Accepting his Lustration could be a down payment on later services.
     "I presume you've arranged transportation," she said.
 
-= = = = = =
+===
 
 I give you the desert chameleon, whose ability to blend itself into the background tells you all you need to know about the roots of ecology and the foundations of a personal identity.
 -Book of Diatribes from the Hayt Chronicle
@@ -416,7 +416,7 @@ Which death makes whole."
     "Why . . . I don't know. When Stilgar first told us how they killed the people there and made the place tabu, I thought . . . what you thought. But danger comes from there now . . . and The Preacher."
     She didn't respond, didn't demand that he share more of his prescient dreams with her, and she knew how much this told him of her terror. That way led to Abomination and they both knew it. The word hung unspoken between them as he turned and led the way back over the rocks to the sietch entrance. Abomination.
 
-= = = = = =
+===
 
 The Universe is God's. It is one thing, a wholeness against which all separations may be identified. Transient life, even that self-aware and reasoning life which we call sentient, holds only fragile trusteeship on any portion of the wholeness.
 -Commentaries from the C.E.T. (Commission of Ecumenical Translators)
@@ -436,7 +436,7 @@ The Universe is God's. It is one thing, a wholeness against which all separation
     "I'm assigning additional guards to your person," Halleck said, speaking aloud, avoiding the light spark of displeasure which Jessica's eyes betrayed. "There are dangers, I'm certain. Will you spend the night here?"
     "We'll go later to Sietch Tabr," she said and hesitated, on the point of telling him not to send more guards, but she held her silence. Gurney's instincts were to be trusted. More than one Atreides had learned this, both to his pleasure and his sorrow. "I have one more meeting -- with the Master of Novitiates this time," she said. "That's the last one and I'll be happily shut of this place."
 
-= = = = = =
+===
 
 And I beheld another beast coming up out of the sand; and he had two horns like a lamb, but his mouth was fanged and fiery as the dragon and his body shimmered and burned with great heat while it did hiss like the serpent.
 -Revised Orange Catholic Bible
@@ -467,7 +467,7 @@ And I beheld another beast coming up out of the sand; and he had two horns like 
     "I bring the Hand of God, and that is all I bring!" The Preacher shouted. "I speak for the Hand of God. I am The Preacher."
     Some took him to mean that the hand was Muad'Dib's, but others fastened on that commanding presence and the terrible voice -- and that was how Arrakis came to know his name. But it was not the last time his voice was heard.
 
-= = = = = =
+===
 
 It is commonly reported, my dear Georad, that there exists great natural virtue in the melange experience. Perhaps this is true. There remain within me, however, profound doubts that every use of melange always brings virtue. Me seems that certain persons have corrupted the use of melange in defiance of God. In the words of the Ecumenon, they have disfigured the soul. They skim the surface of melange and believe thereby to attain grace. They deride their fellows, do great harm to godliness, and they distort the meaning of this abundant gift maliciously, surely a mutilation beyond the power of man to restore. To be truly at one with the virtue of the spice, uncorrupted in all ways, full of goodly honor, a man must permit his deeds and his words to agree. When your actions describe a system of evil consequences, you should be judged by those consequences and not by your explanations. It is thus that we should judge Muad'Dib.
 -The Pedant Heresy
@@ -563,7 +563,7 @@ It is commonly reported, my dear Georad, that there exists great natural virtue 
     "At once, Princess. I presume you don't want me to stint his education in the other martial arts at the expense of this, ahh, religion?"
     She pushed herself out of the chair, strode around him, paused at the door, and spoke without looking back. "Someday you will try my patience once too often, Tyekanik." With that, she let herself out.
 
-= = = = = =
+===
 
 Either we abandon the long-honored Theory of Relativity, or we cease to believe that we can engage in continued accurate prediction of the future. Indeed, knowing the future raises a host of questions which cannot be answered under conventional assumptions unless one first projects an Observer outside of Time and, second, nullifies all movement. If you accept the Theory of Relativity, it can be shown that Time and the Observer must stand still in relationship to each or inaccuracies will intervene. This would seem to say that it is impossible to engage in accurate prediction of the future. How, then, do we explain the continued seeking after this visionary goal by respected scientists? How, then, do we explain Muad'Dib?
 -Lectures on Prescience by Harq al-Ada
@@ -640,7 +640,7 @@ Either we abandon the long-honored Theory of Relativity, or we cease to believe 
     Jessica found herself silenced by this further example of how Ghanima's mind worked in concert with what must be an inner awareness of others. Of me! How truly strange it was, Jessica thought, that this young flesh could carry all of Paul's memories, at least until the moment of Paul's spermal separation from his own past. It was an invasion of privacy against which something primal in Jessica rebelled. Momentarily she felt herself sinking into the absolute and unswerving Bene Gesserit judgment: Abomination! But there was a sweetness about this child, a willingness to sacrifice for her brother, which could not be denied.
     We are one life reaching out into a dark future, Jessica thought. We are one blood. And she girded herself to accept the events which she and Gurney Halleck had set in motion. Leto must be separated from his sister, must be trained as the Sisterhood insisted.
 
-= = = = = =
+===
 
 I hear the wind blowing across the desert and I see the moons of a winter night rising tike great ships in the void. To them I make my vow: I will be resolute and make an art of government; I will balance my inherited past and become a perfect storehouse of my relic memories. And I will be known for kindliness more than for knowledge. My face will shine down the corridors of time for as long as humans exist.
 -Leto's Vow, After Harq al-Ada
@@ -791,7 +791,7 @@ I hear the wind blowing across the desert and I see the moons of a winter night 
     "Perhaps you were right, Baron," she whispered.
     "You see!" the voice within her chortled. "Ahhh, this will be a pleasant service to you, child, and it's only the beginning . . ."
 
-= = = = = =
+===
 
 These are illusions of popular history which a successful religion must promote: Evil men never prosper; only the brave deserve the fair; honesty is the best policy; actions speak louder than words; virtue always triumphs; a good deed is its own reward; any bad human can be reformed; religious talismans protect one from demon possession; only females understand the ancient mysteries; the rich are doomed to unhappiness . . .
 -From the Instruction Manual: Missionaria Protectiva
@@ -825,7 +825,7 @@ These are illusions of popular history which a successful religion must promote:
     "As you say, father."
     "You are trusted with important duties," Muriz said. "I am proud of you."
 
-= = = = = =
+===
 
 A sophisticated human can become primitive. What this really means is that the human's way of life changes. Old values change, become linked to the landscape with its plants and animals. This new existence requires a working knowledge of those multiplex and cross-linked events usually referred to as nature. It requires a measure of respect for the inertial power within such natural systems. When a human gains this working knowledge and respect, that is called "being primitive." The converse, of course, is equally true: the primitive can become sophisticated, but not without accepting dreadful psychological damage.
 -The Leto Commentary, After Harq al-Ada
@@ -1052,7 +1052,7 @@ For my love is thy palace . . ."
     "The other way might be cleaner."
     By her reply, he knew she had finally suppressed her doubts and come around to agreement with his plan. The realization brought him no happiness. He found himself looking at his own hands, wondering if the dirt would cling.
 
-= = = = = =
+===
 
 This was Muad'Dib's achievement: He saw the subliminal reservoir of each individual as an unconscious bank of memories going back to the primal cell of our common genesis. Each of us, he said, can measure out his distance from that common origin. Seeing this and telling of it, he made the audacious leap of decision. Muad'Dib set himself the task of integrating genetic memory into ongoing evaluation. Thus did he break through Time's veils, making a single thing of the future and the past. That was Muad'Dib's creation embodied in his son and his daughter.
 -Testament of Arrakis by Harq al-Ada
@@ -1204,7 +1204,7 @@ This was Muad'Dib's achievement: He saw the subliminal reservoir of each individ
     "Forgive him, Prince," The Preacher said. "Your faithful Bashar does God's will without even knowing it." Bowing, The Preacher departed, and Tyekanik hurried to see him away.
     Farad'n watched the retreating backs, thought: I must look into this religion which Tyek espouses. And he smiled ruefully. What a dream interpreter! But what matter? My dream was not an important thing.
 
-= = = = = =
+===
 
 And he saw a vision of armor. The armor was not his own skin; it was stronger than plasteel. Nothing penetrated his armor -- not knife or poison or sand, not the dust of the desert or its desiccating heat. In his right hand he carried the power to make the Coriolis storm, to shake the earth and erode it into nothing. His eyes were fixed upon the Golden Path and in his left hand he carried the scepter of absolute mastery. And beyond the Golden Path, his eyes looked into eternity which he knew to be the food of his soul and of his everlasting flesh.
 -Heighia, My Brother's Dream from The Book of Ghanima
@@ -1345,7 +1345,7 @@ And he saw a vision of armor. The armor was not his own skin; it was stronger th
     Leto stood, nodded. He said: "Some actions have an end but no beginning; some begin but do not end. It all depends upon where the observer is standing." Turning, he left her chambers.
     In the second anteroom, Leto met Ghanima hurrying into their private quarters. She stopped as she saw him, said: "Alia's busy with the Convocation of the Faith." She looked a question at the passage which led to Jessica's quarters. 
 
-= = = = = =
+===
 
 Atrocity is recognized as such by victim and perpetrator alike, by all who learn about it at whatever remove. Atrocity has no excuses, no mitigating argument. Atrocity never balances or rectifies the past. Atrocity merely arms the future for more atrocity. It is self-perpetuating upon itself -- a barbarous form of incest. Whoever commits atrocity also commits those future atrocities thus bred.
 -The Apocrypha of Muad'Dib
@@ -1425,7 +1425,7 @@ Atrocity is recognized as such by victim and perpetrator alike, by all who learn
     The Preacher could be dealt with later. She understood his posture. The symbolism was clear. He was the ancient spirit of unbridled speculation, the spirit of heresy alive and functioning in her desert of orthodoxy. That was his strength. It didn't matter whether he was Paul . . . as long as that could be kept in doubt. But her Bene Gesserit knowledge told Alia that his strength would contain the key to his weakness.
     The Preacher has a flaw which we will find. I will have him spied upon, watched every moment. And if the opportunity arises, he will be discredited.
 
-= = = = = =
+===
 
 I will not argue with the Fremen claims that they are divinely inspired to transmit a religious revelation, it is their concurrent claim to ideological revelation which inspires me to shower them with derision. Of course, they make the dual claim in the hope that it will strengthen their mandarinate and help them to endure in a universe which finds them increasingly oppressive. It is in the name of all those oppressed people that I warn the Fremen: short-term expediency always fails in the long term.
 -The Preacher at Arrakeen
@@ -1529,7 +1529,7 @@ I will not argue with the Fremen claims that they are divinely inspired to trans
     "Stil! You cannot hold me. Turn your mind once more to that time at Habbanya Ridge. Remember? The factory crawler was out there on the sand and a big Maker was coming. There was no way to save the crawler from the worm. And my father was annoyed that he couldn't save that crawler. But Gurney could think only of the men he'd lost in the sand. Remember what he said: 'Your father would've been more concerned for the men he couldn't save.' Stil, I charge you to save people. They're more important than things. And Ghani is the most precious of all because, without me, she is the only hope for the Atreides."
     "I will hear no more," Stilgar said. He turned and began climbing down the rocks toward the oasis across the sand. He heard Leto following. Presently Leto passed him and, glancing back, said: "Have you noticed, Stil, how beautiful the young women are this year?"
 
-= = = = = =
+===
 
 The life of a single human, as the life of a family or an entire people, persists as memory. My people must come to see this as part of their maturing process. They are people as organism, and in this persistent memory they store more and more experiences in a subliminal reservoir. Humankind hopes to call upon this material if it is needed for a changing universe. But much that is stored can be lost in that chance play of accident which we call "fate." Much may not be integrated into evolutionary relationships, and thus may not be evaluated and keyed into activity by those ongoing environmental changes which inflict themselves upon flesh. The species can forget! This is the special value of the Kwisatz Haderach which the Bene Gesserits never suspected: the Kwisatz Haderach cannot forget.
 -The Book of Leto, After Harq al-Ada
@@ -1574,7 +1574,7 @@ The life of a single human, as the life of a family or an entire people, persist
     Stilgar was forced to stop. It was either that or walk right over Leto.
     The youth peered up at him owlishly, said: "You see, Stil? Tradition isn't the absolute guide you thought it was."
 
-= = = = = =
+===
 
 A Fremen dies when he is too long from the desert; this we call "the water sickness."
 -Stilgar, the Commentaries
@@ -1687,7 +1687,7 @@ A Fremen dies when he is too long from the desert; this we call "the water sickn
     She did not hear the finality in his voice, even kissed him lightly as he left.
     And all the way down through the sietchlike maze of Temple corridors, Idaho brushed at his eyes. Tleilaxu eyes were not immune to tears.
 
-= = = = = =
+===
 
 You have loved Caladan 
 And lamented its lost host -- 
@@ -1777,7 +1777,7 @@ Why, Muad'Dib? Why?"
 
     Ghanima said: "Unfortunately, our father left many man-snails in our universe."
 
-= = = = = =
+===
 
 The assumption that humans exist within an essentially impermanent universe, taken as an operational precept, demands that the intellect become a totally aware balancing instrument. But the intellect cannot react thus without involving the entire organism. Such an organism may be recognized by its burning, driving behavior. And thus it is with a society treated as organism. But here we encounter an old inertia. Societies move to the goading of ancient, reactive impulses. They demand permanence. Any attempt to display the universe of impermanence arouses rejection patterns, fear, anger, and despair. Then how do we explain the acceptance of prescience? Simply: the giver of prescient visions, because he speaks of an absolute (permanent) realization, may be greeted with joy by humankind even while predicting the most dire events.
 -The Book of Leto, After Harq al-Ada
@@ -1910,7 +1910,7 @@ He took his hand from his eyes.
     The Lady Jessica, then?
     Yes, he'd explore that possibility -- but she, too, might be far gone in plotting with her Sisterhood. He carried few illusions about that Atreides concubine. She might do anything at the command of the Bene Gesserits -- even turn against her own grandchildren.
 
-= = = = = =
+===
 
 Good government never depends upon laws, but upon the personal qualities of those who govern. The machinery of government is always subordinate to the will of those who administer that machinery. The most important element of government, therefore, is the method of choosing leaders.
 -Law and Governance, The Spacing Guild Manual
@@ -1976,7 +1976,7 @@ Good government never depends upon laws, but upon the personal qualities of thos
     And Jessica wondered if that might not have been what Idaho had wanted. He'd sent a message, but she'd been unable to respond. Such an enigmatic message: "Danger. Must see you." It had been written in a variant of the old Chakobsa where the particular word chosen to denote danger signified a plot.
     I'll see him immediately when I return to Tabr, she thought.
 
-= = = = = =
+===
 
 This is the fallacy of power: ultimately it is effective only in an absolute, a limited universe. But the basic lesson of our relativistic universe is that things change. Any power must always meet a greater power. Paul Muad'Dib taught this lesson to the Sardaukar on the Plains of Arrakeen. His descendants have yet to learn the lesson for themselves.
 -The Preacher at Arrakeen
@@ -2144,7 +2144,7 @@ Until --"
     I'm supposed to remain here helpless in my knowledge, Jessica thought. With the thought, she launched herself onto the path the adab had revealed, shouting: "Fedaykin, follow me!" 
     It turned out there were six Fedaykin in the room, and five of them won through behind her.
 
-= = = = = =
+===
 
 When I am weaker than you, I ask you for freedom because that is according to your principles; when I am stronger than you, I take away your freedom because that is according to my principles.
 -Words of an ancient philosopher (Attributed by Harq al-Ada to one Louis Veuillot)
@@ -2207,7 +2207,7 @@ When I am weaker than you, I ask you for freedom because that is according to yo
     One stumble and we're lost, he thought.
     That thought reduced the sureness of his knowledge, and he ran faster.
 
-= = = = = =
+===
 
 You Bene Gesserit call your activity of the Panoplia Prophetica a "Science of Religion." Very well. I, a seeker after another kind of scientist, find this an appropriate definition. You do, indeed, build your own myths, but so do all societies. You I must warn, however. You are behaving as so many other misguided scientists have behaved. Your actions reveal that you wish to take something out of [away from] life. It is time you were reminded of that which you so often profess: One cannot have a single thing without its opposite.
 -The Preacher at Arrakeen: A Message to the Sisterhood
@@ -2333,7 +2333,7 @@ You Bene Gesserit call your activity of the Panoplia Prophetica a "Science of Re
     Jessica remained in frozen silence, remembering Leto's words, that she would find an interesting student. Presently she said: "This Preacher -- is he my son?"
     Idaho's voice seemed to come from a great distance: "I wish I knew."
 
-= = = = = =
+===
 
 The universe is just there; that's the only way a Fedaykin can view it and remain the master of his senses. The universe neither threatens nor promises. It holds things beyond our sway: the fall of a meteor, the eruption of a spiceblow, growing old and dying. These are the realities of this universe and they must be faced regardless of how you feel about them. You cannot fend off such realities with words. They will come at you in their own wordless way and then, then you will understand what is meant by "life and death." Understanding this, you will be filled with joy.
 -Muad'Dib to his Fedaykin
@@ -2399,7 +2399,7 @@ The universe is just there; that's the only way a Fedaykin can view it and remai
     Damn her!
     But he knew he was committed. And he recognized that there was a deep emotional difference between history as recorded on shigawire and read at leisure, a deep difference between that kind of history and the history which one lived. This new living history which he felt gathering around him possessed a sense of plunging into an irreversible future. Farad'n could feel himself driven now by the desires of all those whose fortunes rode with him. He found it strange that he could not pin down his own desires in this.
 
-= = = = = =
+===
 
 It is said of Muad'Dib that once when he saw a weed trying to grow between two rocks, he moved one of the rocks. Later, when the weed was seen to be flourishing, he covered it with the remaining rock. "That was its fate," he explained.
 -The Commentaries
@@ -2496,7 +2496,7 @@ It is said of Muad'Dib that once when he saw a weed trying to grow between two r
     Fighting her grief, Ghanima sealed her Fremkit, crept cautiously from her hiding place. Hand on her maula pistol, she scanned the area. No sign of a human with a transmitter. She worked her way up the rocks and across to the far side, creeping through moonshadows, waiting and waiting to be sure no assassin lurked in her path.
     Across the open space she could see torches at Tabr, the wavering activity of a search. A dark patch moved across the sand toward The Attendant. She chose her path to run far to the north of the approaching party, went down to the sand and moved into the dune shadows. Careful to make her steps fall in a broken rhythm which would not attract a worm, she set out into the lonely distance which separated Tabr from the place where Leto had died. She would have to be careful at the qanat, she knew. Nothing must prevent her from telling how her brother had perished saving her from the tigers.
 
-= = = = = =
+===
 
 Governments, if they endure, always tend increasingly toward aristocratic forms. No government in history has been known to evade this pattern. And as the aristocracy develops, government tends more and more to act exclusively in the interests of the ruling class -- whether that class be hereditary royalty, oligarchs of financial empires, or entrenched bureaucracy.
 -Politics as Repeat Phenomenon: Bene Gesserit Training Manual
@@ -2577,7 +2577,7 @@ Governments, if they endure, always tend increasingly toward aristocratic forms.
     A sour chuckle came from Tyekanik. "If you ask me, we're long past the point of no return."
     Farad'n tipped his head back to laugh aloud. "But we still have alternate choices, Tyek! When we come to the end of our rope, that's an important place to recognize!"
 
-= = = = = =
+===
 
 In this age when the means of human transport include devices which can span the deeps of space in transtime, and other devices which can carry men swiftly over virtually impassable planetary surfaces, it seems odd to think of attempting long journeys afoot. Yet this remains a primary means of travel on Arrakis, a fact attributed partly to preference and partly to the brutal treatment which this planet reserves for anything mechanical. In the strictures of Arrakis, human flesh remains the most durable and reliable resource for the Hajj. Perhaps it is the implicit awareness of this fact which makes Arrakis the ultimate mirror of the soul.
 -Handbook of the Hajj
@@ -2615,7 +2615,7 @@ In this age when the means of human transport include devices which can span the
     The woman said something soothing and Palimbasha laughed. As he laughed, his legs began to give away beneath him. He sagged against the woman, who tried to support him. She was still staggering with the dead weight when Ghanima came up beside her and pressed the point of an unsheathed crysknife against her waist.
     In a conversational tone, Ghanima said: "Make no sudden moves, Muriz. My knife is poisoned. You may let go of Palimbasha now. He is dead."
 
-= = = = = =
+===
 
 In all major socializing forces you will find an underlying movement to gain and maintain power through the use of words. From witch doctor to priest to bureaucrat it is all the same. A governed populace must be conditioned to accept power-words as actual things, to confuse the symbolized system with the tangible universe. In the maintenance of such a power structure, certain symbols are kept out of the reach of common understanding -- symbols such as those dealing with economic manipulation or those which define the local interpretation of sanity. Symbol-secrecy of this form leads to the development of fragmented sub-languages, each being a signal that its users are accumulating some form of power. With this insight into a power process, our Imperial Security Force must be ever alert to the formation of sub-languages.
 -Lecture to the Arrakeen War College by, The Princess Irulan
@@ -2766,7 +2766,7 @@ In all major socializing forces you will find an underlying movement to gain and
     "Of course," Jessica said, "you'll want me to teach you as the Bene Gesserit are taught."
     Farad'n beamed at her. "The one offer I cannot resist," he said.
 
-= = = = = =
+===
 
 The password was given to me by a man who died in the dungeons of Arrakeen. You see, that is where I got this ring in the shape of a tortoise. It was in the suk outside the city where I was hidden by the rebels. The password? Oh, that has been changed many times since then. It was "Persistence." And the countersign was "Tortoise." It got me out of there alive. That's why I bought this ring: a reminder.
 -Tagir Mohandis: Conversations with a Friend
@@ -2803,7 +2803,7 @@ The password was given to me by a man who died in the dungeons of Arrakeen. You 
     A terrible glove will restore the balance, Leto thought.
     Presently, he slept.
 
-= = = = = =
+===
 
 I saw his blood and a piece of his robe which had been ripped by sharp claws. His sister reports vividly of the tigers, the sureness of their attack. We have questioned one of the plotters, and others are dead or in custody. Everything points to a Corrino plot. A Truthsayer has attested to this testimony.
 -Stilgar's Report to the Landsraad Commission
@@ -2851,7 +2851,7 @@ I saw his blood and a piece of his robe which had been ripped by sharp claws. Hi
     The spy screen showed a servant opening the Lady Jessica's door. The woman beckoned Idaho, who arose from the bench and went through the door. The servant would file a complete report later, but Farad'n, his curiosity once more fully aroused, touched another switch on his console, watched as Idaho entered the sitting room of the Lady Jessica's quarters.
     How calm and contained the mentat appeared. And how fathomless were his ghola eyes.
 
-= = = = = =
+===
 
 Above all else, the mentat must be a generalist, not a specialist. It is wise to have decisions of great moment monitored by generalists. Experts and specialists lead you quickly into chaos. They are a source of useless nit picking, the ferocious quibble over a comma. The mentat-generalist, on the other hand, should bring to decision-making a healthy common sense. He must not cut himself off from the broad sweep of what is happening in his universe. He must remain capable of saying: "There's no real mystery about this at the moment. This is what we want now. It may prove wrong later, but we'll correct that when we come to it." The mentat-generalist must understand that anything which we can identify as our universe is merely part of larger phenomena. But the expert looks backward; he looks into the narrow standards of his own specialty. The generalist looks outward; he looks for living principles, knowing full well that such principles change, that they develop. It is to the characteristics of change itself that the mentat-generalist must look. There can be no permanent catalogue of such change, no handbook or manual. You must look at it with as few preconceptions as possible, asking yourself: "Now what is this thing doing?"
 -The Mentat Handbook
@@ -2914,7 +2914,7 @@ Above all else, the mentat must be a generalist, not a specialist. It is wise to
     Now she did not even have Duncan to lean upon, nor her mother. The inner lives remained silent. There was Ghanima, held securely under guard within the Keep, but Alia could not bring herself to take this distress to the surviving twin.
     Everyone has turned against me. What can I do?
 
-= = = = = =
+===
 
 The one-eyed view of our universe says you must not look far afield for problems. Such problems may never arrive. Instead, tend to the wolf within your fences. The packs ranging outside may not even exist.
 -The Azhar Book; Shamra I:4
@@ -2980,7 +2980,7 @@ The one-eyed view of our universe says you must not look far afield for problems
     "Such is my intention." He slipped out the door, passing the curious stare of the servant who'd obviously been listening.
     It's done, he thought. And they can read it in only one way.
 
-= = = = = =
+===
 
 Only in the realm of mathematics can you understand Muad'Dib's precise view of the future. Thus: first, we postulate any number of point-dimensions in space. (This is the classic n-fold extended aggregate of n dimensions.) With this framework, Time as commonly understood becomes an aggregate of one-dimensional properties. Applying this to the Muad'Dib phenomenon, we find that we either are confronted by new properties of Time or (by reduction through the infinity calculus) we are dealing with separate systems which contain n body properties. For Muad'Dib, we assume the latter. As demonstrated by the reduction, the point dimensions of the n-fold can only have separate existence within different frameworks of Time. Separate dimensions of Time are thus demonstrated to coexist. This being the inescapable case, Muad'Dib's predictions required that he perceive the n-fold not as extended aggregate but as an operation within a single framework. In effect, he froze his universe into that one framework which was his view of Time.
 -Palimbasha: Lectures at Sietch Tabr
@@ -3056,7 +3056,7 @@ Beneath the hill.
     "Many's the time I've dared it. He was only Paul Atreides, after all. Well, boy, welcome to your school."
     The man brought a hand from beneath his robe, touched Leto's cheek. Leto felt the jolt of a slapshot and found himself winding downward into a darkness where a green flag waved. It was the green banner of the Atreides with its day and night symbols, its Dune staff which concealed a water tube. He heard the water gurgling as unconsciousness enfolded him. Or was it someone chuckling?
 
-= = = = = =
+===
 
 We can still remember the golden days before Heisenberg, who showed humans the walls enclosing our predestined arguments. The lives within me find this amusing. Knowledge, you see, has no uses without purpose, but purpose is what builds enclosing walls.
 -Leto Atreides II, His Voice
@@ -3099,7 +3099,7 @@ We can still remember the golden days before Heisenberg, who showed humans the w
     "Ghanima's knife is sharp," the Baron said. "Remember that."
     Alia blinked. Yes, that was something to remember. Ghanima's knife was sharp. That knife might yet cut them out of their present predicament. 
 
-= = = = = =
+===
 
 If you believe certain words, you believe their hidden arguments. When you believe something is right or wrong, true or false, you believe the assumptions in the words which express the arguments. Such assumptions are often full of holes, but remain most precious to the convinced.
 -The Open-Ended Proof from, The Panoplia Prophetica
@@ -3154,7 +3154,7 @@ If you believe certain words, you believe their hidden arguments. When you belie
     Namri nodded slowly. Then: "The one who trapped you and brought you here will see you presently. Do not try to leave this place. It would be your death." Arising as he spoke, Namri went out into the dark passage.
     For a long time after he had gone, Leto stared into the passage. He could hear sounds out there, the quiet voices of men on guard duty. Namri's story of the mirage-vision stayed with Leto. It brought up the long desert crossing to this place. It no longer mattered whether this were Jacurutu/Fondak. Namri was not a smuggler. He was something much more potent. And the game Namri played smelled of the Lady Jessica; it stank of the Bene Gesserit. Leto sensed an enclosing peril in this realization. But that dark passage where Namri had gone was the only exit from this room. And outside lay a strange sietch -- beyond that, the desert. The harsh severity of that desert, its ordered chaos with mirages and endless dunes, came over Leto as part of the trap in which he was caught. He could recross that sand, but where would flight take him? The thought was like stagnant water. It would not quench his thirst.
 
-= = = = = =
+===
 
 Because of the one-pointed Time awareness in which the conventional mind remains immersed, humans tend to think of everything in a sequential, word-oriented framework. This mental trap produces very short-term concepts of effectiveness and consequences, a condition of constant, unplanned response to crises.
 -Liet-Kynes, The Arrakis Workbook
@@ -3204,7 +3204,7 @@ Because of the one-pointed Time awareness in which the conventional mind remains
     Jessica, glancing back, saw their stern faces as a milepost in her design. She turned away as she came to the stairs, went down them and through a short passage into the garden below her windows.
     Now if only Duncan and Gurney can do their parts, she thought as she felt the gravel of a pathway beneath her feet, saw the golden light filtered by greenery.
 
-= = = = = =
+===
 
 You will learn the integrated communication methods as you complete the next step in your mentat education. This is a gestalten function which will overlay data paths in your awareness, resolving complexities and masses of input from the mentat index-catalogue techniques which you already have mastered. Your initial problem will be the breaking tensions arising from the divergent assembly of minutiae/data on specialized subjects. Be warned. Without mentat overlay integration, you can be immersed in the Babel Problem, which is the label we give to the omnipresent dangers of achieving wrong combinations from accurate information.
 -The Mentat Handbook
@@ -3250,7 +3250,7 @@ You will learn the integrated communication methods as you complete the next ste
     "As a sign of unbridled power," Namri said, but it was a lie.
     "Indifferent power, yes." Leto sat up, sighed deeply. "There was no moral grandeur to my father's life, Namri; only a local trap which he built for himself."
 
-= = = = = =
+===
 
 O Paul, thou Muad'Dib, 
 Mahdi of all men, 
@@ -3331,7 +3331,7 @@ Sent forth the hurricane.
     "Don't try to teach me how to conduct a plot," Alia said. She turned and followed Irulan, but at a slower pace. The guards outside and the waiting aides were sucked up in her wake like sand particles drawn into the vortex of a rising worm.
     Ghanima shook her head sadly from side to side as the door closed, thought: It's as poor Leto and I thought. Gods below! I wish it'd been me the tiger killed instead of him.
 
-= = = = = =
+===
 
 Many forces sought control of the Atreides twins and, when the death of Leto was announced, this movement of plot and counterplot was amplified. Note the relative motivations: the Sisterhood feared Alia, an adult Abomination, but still wanted those genetic characteristics carried by the Atreides. The Church hierarchy of Auqaf and Hajj saw only the power implicit in control of Muad'Dib's heir. CHOAM wanted a doorway to the wealth of Dune. Farad'n and his Sardaukar sought a return to glory for House Corrino. The Spacing Guild feared the equation Arrakis = melange; without the spice they could not navigate. Jessica wished to repair what her disobedience to the Bene Gesserit had created. Few thought to ask the twins what their plans might be, until it was too late.
 -The Book of Kreos
@@ -3422,7 +3422,7 @@ Many forces sought control of the Atreides twins and, when the death of Leto was
     His father-within spoke to him then, cautiously probing, unable to demand attention but pleading for audience.
     And Leto answered: "No. We will give them complexities to occupy their minds. There are many modes of flight from danger. How will they know I'm dangerous unless they experience me for thousands of years? Yes, father-within, we'll give them question marks."
 
-= = = = = =
+===
 
 There is no guilt or innocence in you. All of that is past. Guilt belabors the dead and I am not the Iron Hammer. You multitude of the dead are merely people who have done certain things, and the memory of those things illuminates my path.
 -Leto II to His Memory-Lives, After Harq al-Ada
@@ -3475,7 +3475,7 @@ There is no guilt or innocence in you. All of that is past. Guilt belabors the d
     Jessica watched his retreating back as he let himself out of her bedchamber. She turned off the glowglobes, lay back. This Farad'n was a deep one. He'd as much as told her that he was beginning to see her design, but he was joining her conspiracy of his own volition.
     Wait until he begins to learn his own emotions, she thought. With that, she composed herself for the return to sleep. The morrow, she knew, would be plagued by casual encounters with palace personnel asking seemingly innocuous questions. 
 
-= = = = = =
+===
 
 Humankind periodically goes through a speedup of its affairs, thereby experiencing the race between the renewable vitality of the living and the beckoning vitiation of decadence. In this periodic race, any pause becomes luxury. Only then can one reflect that all is permitted; all is possible.
 -The Apocrypha of Muad'Dib
@@ -3576,7 +3576,7 @@ Humankind periodically goes through a speedup of its affairs, thereby experienci
     "The alternative keeps me silent," he said. "I might have to give my sister to a monster."
     Again he turned away from her, and this time when she pulled at his robe he resisted, refusing to answer her questions. Best she not know until the time comes, he thought.
 
-= = = = = =
+===
 
 Natural selection has been described as an environment selectively screening for those who will have progeny. Where humans are concerned, though, this is an extremely limiting viewpoint. Reproduction by sex tends toward experiment and innovation. It raises many questions, including the ancient one about whether environment is a selective agent after the variation occurs, or whether environment plays a pre-selective role in determining the variations which it screens. Dune did not realty answer those questions: it merely raised new questions which Leto and the Sisterhood may attempt to answer over the next five hundred generations.
 -The Dune Catastrophe, After Harq al-Ada
@@ -3646,7 +3646,7 @@ Natural selection has been described as an environment selectively screening for
     Don't let me have to kill this woman. Ghanima thought. Don't let that happen.
     As this thought swept through her, the whole desert passed into night.
 
-= = = = = =
+===
 
 One small bird has called thee 
 From a beak streaked crimson. 
@@ -3704,7 +3704,7 @@ And thou went forth unto Funeral Plain.
     "Not if he took a Fremkit and hid in the sand," Sabiha said.
     Cursing under his breath, Halleck whirled away from them, strode out into the sietch.
 
-= = = = = =
+===
 
 Peace demands solutions, but we never reach living solutions; we only work toward them. A fixed solution is, by definition, a dead solution. The trouble with peace is that it tends to punish mistakes instead of rewarding brilliance.
 -The Words of My Father: an account of Muad'Dib reconstructed by Harq al-Ada
@@ -3754,7 +3754,7 @@ Peace demands solutions, but we never reach living solutions; we only work towar
     Ghanima with Stilgar again. And Irulan.
     Why had Zia been designated to accompany him? He made it a mentat problem and the answer chilled him. I was to have a fatal accident.
 
-= = = = = =
+===
 
 This rocky shrine to the skull of a ruler grants no prayers. It has become the grave of lamentations. Only the wind hears the voice of this place. The cries of night creatures and the passing wonder of two moons, all say his day has ended. No more supplicants come. The visitors have gone from the feast. How bare the pathway down this mountain.
 -Lines at the Shrine of an Atreides Duke, Anon.
@@ -3785,7 +3785,7 @@ This rocky shrine to the skull of a ruler grants no prayers. It has become the g
     Leto stretched flat on his back, folded his hands over his breast and sent himself into a dormancy trance where his lungs would move only once an hour. In this he committed himself to the unknown. The storm would pass and, if it did not expose his fragile pocket, he might emerge . . . or he might enter the Madinat as-salam, the Abode of Peace. Whatever happened, he knew he had to break the threads, one by one, leaving him at last only the Golden Path. It was that, or he could not return to the caliphate of his father's heirs. No more would he live the lie of that Desposyni, that terrible caliphate, chanting to the demiurge of his father. No more would he keep silent when a priest mouthed offensive nonsense: "His crysknife will dissolve demons!"
     With this commitment, Leto's awareness slipped into the web of timeless dao.
 
-= = = = = =
+===
 
 There exist obvious higher-order influences in any planetary system. This is often demonstrated by introducing terraform life onto newly discovered planets. In all such cases, the life in similar zones develops striking similarities of adaptive form. This form signifies much more than shape; it connotes a survival organization and a relationship of such organizations. The human quest for this interdependent order and our niche within it represents a profound necessity. The quest can, however, be perverted into a conservative grip on sameness. This has always proved deadly for the entire system.
 -The Dune Catastrophe, After Harq al-Ada
@@ -3799,7 +3799,7 @@ There exist obvious higher-order influences in any planetary system. This is oft
     Jessica held her arms stiffly at her side, said: "I am charged to say this to you. 'I stand in the sacred human presence. As I do now, so should you stand someday. I pray to your presence that this be so. The future remains uncertain and so it should, for it is the canvas upon which we paint our desires. Thus always the human condition faces a beautifully empty canvas. We possess only this moment in which to dedicate ourselves continuously to the sacred presence which we share and create.' "
     As Jessica finished speaking, Tyekanik came through the door on her left, moving with a false casualness which the scowl on his face belied. "My Lord," he said. But it already was too late. Jessica's words and all of the preparation which had gone before had done their work. Farad'n no longer was Corrino. He was now Bene Gesserit.
 
-= = = = = =
+===
 
 What you of the CHOAM directorate seem unable to understand is that you seldom find real loyalties in commerce. When did you last hear of a clerk giving his life for the company? Perhaps your deficiency rests in the false assumption that you can order men to think and cooperate. This has been a failure of everything from religions to general staffs throughout history. General staffs have a long record of destroying their own nations. As to religions, I recommend a rereading of Thomas Aquinas. As to you of CHOAM, what nonsense you believe! Men must want to do things out of their own innermost drives. People, not commercial organizations or chains of command, are what make great civilizations work. Every civilization depends upon the quality of the individuals it produces. If you over-organize humans, over-legalize them, suppress their urge to greatness -- they cannot work and their civilization collapses.
 -A letter to CHOAM, Attributed to The Preacher
@@ -3911,7 +3911,7 @@ What you of the CHOAM directorate seem unable to understand is that you seldom f
     "How else can I live with the Cast Out?"
     Again Leto saw the sly look in Muriz's eyes, but this time it was a measuring thing, a weighing of economics. The man turned away with an abruptness which told of secret decisions, recovered his maula pistol and returned to the wing step. "Come," he said. "We tarry too long in a worm's lair."
 
-= = = = = =
+===
 
 The future of prescience cannot always be locked into the rules of the past. The threads of existence tangle according to many unknown laws. Prescient future insists on its own rules. It will not conform to the ordering of the Zensunni nor to the ordering of science. Prescience builds a relative integrity. It demands the work of this instant, always warning that you cannot weave every thread into the fabric of the past.
 -Kalima: The Words of Muad'Dib, The Shuloch Commentary
@@ -3953,7 +3953,7 @@ The future of prescience cannot always be locked into the rules of the past. The
     Even Muriz stared at him in awe. Fremen never cried unless it was the most profound gift of the soul. Almost embarrassed, Muriz closed his mouthseal, pulled his djeballa hood low over his brows.
     Leto peered beyond the man, said: "Here in Shuloch they still pray for dew at the desert's edge. Go, Muriz, and pray for Kralizec. I promise you it will come." 
 
-= = = = = =
+===
 
 Fremen speech implies great concision, a precise sense of expression. It is immersed in the illusion of absolutes. Its assumptions are a fertile ground for absolutist religions. Furthermore, Fremen are fond of moralizing. They confront the terrifying instability of all things with institutionalized statements. They say: "We know there is no summa of all attainable knowledge; that is the preserve of God. But whatever men can learn, men can contain." Out of this knife-edged approach to the universe they carve a fantastic belief in signs and omens and in their own destiny. This is an origin of their Kralizec legend: the war at the end of the universe.
 -Bene Gesserit Private Reports/folio 800881
@@ -4004,7 +4004,7 @@ Fremen speech implies great concision, a precise sense of expression. It is imme
     I never did like her plan for the boy, he thought. And I'll tell her so if I see her. If. Because if Namri spoke the truth, the most dangerous alternate plan went into effect. Alia wouldn't let him live long if she caught him, but there was always Stilgar -- a good Fremen with a good Fremen's superstitions.
     Jessica had explained it: "There's a very thin layer of civilized behavior over Stilgar's original nature. And here's how you take that layer off him . . ."
 
-= = = = = =
+===
 
 The spirit of Muad'Dib is more than words, more than the letter of the Law which arises in his name. Muad'Dib must always be that inner outrage against the complacently powerful, against the charlatans and the dogmatic fanatics. It is that inner outrage which must have its say because Muad'Dib taught us one thing above all others: that humans can endure only in a fraternity of social justice.
 -The Fedaykin Compact
@@ -4111,7 +4111,7 @@ The spirit of Muad'Dib is more than words, more than the letter of the Law which
     The Golden Path lured him out there on the desert, almost a physical thing which he could see with his open eyes. And he thought how it was: as animals must move across the land, their existence dependent upon that movement the soul of humankind, blocked for eons, needed a track upon which it could move.
     He thought of his father then, telling himself: "Soon we'll dispute as man to man, and only one vision will emerge."
 
-= = = = = =
+===
 
 Limits of survival are set by climate, those long drifts of change which a generation may fail to notice. And it is the extremes of climate which set the pattern. Lonely, finite humans may observe climatic provinces, fluctuations of annual weather and, occasionally may observe such things as "This is a colder year than I've ever known. " Such things are sensible. But humans are seldom alerted to the shifting average through a great span of years. And it is precisely in this alerting that humans learn how to survive on any planet. They must learn climate.
 -Arrakis, the Transformation, After Harq al-Ada
@@ -4154,7 +4154,7 @@ Limits of survival are set by climate, those long drifts of change which a gener
     "Very well." Petulant. "Another time, then." 
     "Another time," she agreed.
 
-= = = = = =
+===
 
 Thou didst divide the sand by thy strength; Thou breakest the heads of the dragons in the desert. Yea, I behold thee as a beast coming up from the dunes; thou hast the two horns of the lamb, but thou speakest as the dragon.
 -Revised Orange Catholic Bible Arran 11:4
@@ -4338,7 +4338,7 @@ Thou didst divide the sand by thy strength; Thou breakest the heads of the drago
     The night wind blew coldly around them then. It whipped Paul's robe around his legs. He trembled. Seeing this, Leto said: "You've a kit, father. I'll inflate the tent and we can spend this night in comfort."
     But Paul could only shake his head, knowing he would have no comfort from this night or any other. Muad'Dib, The Hero, must be destroyed. He'd said it himself. Only The Preacher could go on now.
 
-= = = = = =
+===
 
 Fremen were the first humans to develop a conscious/unconscious symbology through which to experience the movements and relationships of their planetary system. They were the first people anywhere to express climate in terms of a semi-mathematic language whose written symbols embody (and internalize) the external relationships. The language itself was part of the system it described. Its written form carried the shape of what it described. The intimate local knowledge of what was available to support life was implicit in this development. One can measure the extent of this language/system interaction by the fact that Fremen accepted themselves as foraging and browsing animals.
 -The Story of Liet-Kynes by Harq al-Ada
@@ -4430,7 +4430,7 @@ Fremen were the first humans to develop a conscious/unconscious symbology throug
     "Yes, husband." Still she hesitated. "You take Ghani as hostage?"
     "Hostage?" He was genuinely startled by the thought. "Woman . . ." He touched Idaho's body softly with a toe. "If this mentat was right. I'm Ghani's only hope." And he remembered then Leto's warning: "Beware of Alia. You must take Ghani and flee."
 
-= = = = = =
+===
 
 After the Fremen, all Planetologists see life as expressions of energy and look for the overriding relationships. In small pieces, bits and parcels which grow into general understanding, the Fremen racial wisdom is translated into a new certainty. The thing Fremen have as a people, any people can have. They need but develop a sense for energy relationships. They need but observe that energy soaks up the patterns of things and builds with those patterns.
 -The Arrakeen Catastrophe, After Harq al-Ada
@@ -4454,7 +4454,7 @@ After the Fremen, all Planetologists see life as expressions of energy and look 
     Just until I can steal one of their 'thopters, he thought.
     "My gratitude to your Council," he said. And he thought of Esmar Tuek, for whom this sietch had been named. Esmar, long dead of someone's treachery, would have slit the throat of this Melides on sight.
 
-= = = = = =
+===
 
 Any path which narrows future possibilities may become a lethal trap. Humans are not threading their way through a maze; they scan a vast horizon filled with unique opportunities. The narrowing viewpoint of the maze should appeal only to creatures with their noses buried in sand. Sexually produced uniqueness and differences are the life-protection of the spices.
 -The Spacing Guild Handbook
@@ -4517,7 +4517,7 @@ Any path which narrows future possibilities may become a lethal trap. Humans are
     But nothing stopped the tears, and she felt the painfulness which flamed through her breast as it moved her flesh and hurled her onto the bed.
     Still something demanded out of that profound astonishment: "Who cries? Who is that . . ."
 
-= = = = = =
+===
 
 By these acts Leto II removed himself from the evolutionary succession. He did it with a deliberate cutting action, saying: "To be independent is to be removed." Both twins saw beyond the needs of memory as a measuring process, that is, a way of determining their distance from their human origins. But it was left to Leto II to do the audacious thing, recognizing that a real creation is independent of its creator. He refused to reenact the evolutionary sequence, saying, "That, too, takes me farther and farther from humanity." He saw the implications in this: that there can be no truly closed systems in life.
 -The Holy Metamorphosis, by Harq al-Ada
@@ -4579,7 +4579,7 @@ By these acts Leto II removed himself from the evolutionary succession. He did i
     What an odd thought.
     But she couldn't recall who'd said those words.
 
-= = = = = =
+===
 
 Muad'Dib was disinherited and he spoke for the disinherited of all time. He cried out against that profound injustice which alienates the individual from that which he was taught to believe, from that which seemed to come to him as a right.
 -The Mahdinate, An Analysis by Harq al-Ada
@@ -4685,7 +4685,7 @@ Muad'Dib was disinherited and he spoke for the disinherited of all time. He crie
     Looking down from the Shuloch butte, Halleck asked himself once more, as he asked every day: "What test? What does he mean?"
     But Leto was no longer in Shuloch, and Paul refused to answer.
 
-= = = = = =
+===
 
 Church and State, scientific reason and faith, the individual and his community, even progress and tradition -- all of these can be reconciled in the teachings of Muad'Dib. He taught us that there exist no intransigent opposites except in the beliefs of men. Anyone can rip aside the veil of Time. You can discover the future in the past or in your own imagination. Doing this, you win back your consciousness in your inner being. You know then that the universe is a coherent whole and you are indivisible from it.
 -The Preacher at Arrakeen, After Harq al-Ada
@@ -4721,7 +4721,7 @@ Church and State, scientific reason and faith, the individual and his community,
     Ghanima's last sensory impressions were of cold air, a glimpse of stars, and a hooded face which looked down at her, then asked: "She wasn't injured, was she?"
     The answer was lost as the stars wheeled and streaked across her gaze, losing themselves in a blaze of light which was the inner core of her selfdom.
 
-= = = = = =
+===
 
 Muad'Dib gave us a particular kind of knowledge about prophetic insight, about the behavior which surrounds such insight and its influence upon events which are seen to be "on line." (That is, events which are set to occur in a related system which the prophet reveals and interprets.) As has been noted elsewhere, such insight operates as a peculiar trap for the prophet himself. He can become the victim of what he knows -- which is a relatively common human failing. The danger is that those who predict real events may overtook the polarizing effect brought about by overindulgence in their own truth. They tend to forget that nothing in a polarized universe can exist without its opposite being present.
 -The Prescient Vision, by Harq al-Ada
@@ -4781,7 +4781,7 @@ Muad'Dib gave us a particular kind of knowledge about prophetic insight, about t
     This cursed holiness!
     The sandy juice of his fears could not be avoided. He knew what faced them in Arrakeen. They would play a game once more with terrifying and deadly forces which could never bring them peace.
 
-= = = = = = 
+=== 
 
 The child who refuses to travel in the father's harness, this is the symbol of man's most unique capability. "I do not have to be what my father was. I do not have to obey my father's rules or even believe everything he believed. It is my strength as a human that I can make my own choices of what to believe and what not to believe, of what to be and what not to be."
 -Leto Atreides II, The Harq al-Ada Biography
@@ -4933,7 +4933,7 @@ The child who refuses to travel in the father's harness, this is the symbol of m
     Leto looked at Jessica. "We told you to pity her." 
     Jessica turned and buried her face in Farad'n's tunic.
 
-= = = = = =
+===
 
 The assumption that a whole system can be made to work better through an assault on its conscious elements betrays a dangerous ignorance. This has often been the ignorant approach of those who call themselves scientists and technologists.
 -The Butlerian Jihad, by Harq al-Ada
@@ -5014,7 +5014,7 @@ The assumption that a whole system can be made to work better through an assault
     Farad'n felt his mind awash in revelation. He knew what Ghanima would say before she spoke.
     "The Guild will barely make it through the lean years, and only then because of its stockpiles and ours," Ghanima said. "But there'll be abundance after Kralizec. The worms will return after my brother goes into the sand."
 
-= = = = = =
+===
 
 As with so many other religions, Muad'Dib's Golden Elixir of Life degenerated into external wizardry. Its mystical signs became mere symbols for deeper psychological processes, and those processes, of course, ran wild. What they needed was a living god, and they didn't have one, a situation which Muad'Dib's son has corrected.
 -Saying attributed to Lu Tung-pin, (Lu, The Guest of the Cavern)

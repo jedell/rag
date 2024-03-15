@@ -44,7 +44,7 @@ A: Though you kill me for it, it's not heresy. The Princess became his consort, 
 Q: It's easy to see why those who conspire against Muad'dib use your Analysis of History as their rallying argument!
 A: I'll not persuade you; I know that. But the argument of the conspiracy came before my Analysis. Twelve years of Muad'dib's Jihad created the argument. That's what united the ancient power groups and ignited the conspiracy against Muad'dib.
 
-= = = = = =
+===
 
 Such a rich store of myths enfolds Paul Muad'dib, the Mentat Emperor, and his sister, Alia, it is difficult to see the real persons behind these veils. But there were, after all, a man born Paul Atreides and a woman born Alia. Their flesh was subject to space and time. And even though their oracular powers placed them beyond the usual limits of time and space, they came from human stock. They experienced real events which left real traces upon a real universe. To understand them, it must be seen that their catastrophe was the catastrophe of all mankind. This work is dedicated, then, not to Muad'dib or his sister, but to their heirs -- to all of us.
 -Dedication in the Muad'dib Concordance as copied from The Tabla Memorium of the Mahdi Spirit Cult
@@ -66,7 +66,7 @@ Such a rich store of myths enfolds Paul Muad'dib, the Mentat Emperor, and his si
     Hopefully, other historians will learn something from this revelation.
     -Analysis of History: Muad'dib by Bronso of Ix
 
-= = = = = =
+===
 
 There exists no separation between gods and men: one blends softly casual into the other.
 -Proverbs of Muad'dib
@@ -254,7 +254,7 @@ There exists no separation between gods and men: one blends softly casual into t
     "The thing was written with salt," Irulan translated.
     As she spoke, Scytale recognized what the Bene Gesserit had arrayed here for him -- a beautiful and intelligent female who could never be his. Ah, well, he thought, perhaps I'll copy her for another.
 
-= = = = = =
+===
 
 Every civilization must contend with an unconscious force which can block, betray or countermand almost any conscious intention of the collectivity.
 -Tleilaxu Theorem (unproven)
@@ -418,7 +418,7 @@ Every civilization must contend with an unconscious force which can block, betra
     Her arms enclosed his future as they enclosed him. 
     "Not you," he said. "Oh . . . not you."
 
-= = = = = =
+===
 
 The advent of the Field Process shield and the lasgun with their explosive interaction, deadly to attacker and attacked, placed the current determinatives, on weapons technology. We need not go into the special role of atomics. The fact that any Family in my Empire could so deploy its atomics as to destroy the planetary bases of fifty or more other Families causes some nervousness, true. But all of us possess precautionary plans for devastating retaliation. Guild and Landsraad contain the keys which hold this force in check, No, my concern goes to the development of humans as special weapons. Here is a virtually unlimited field which a few powers are developing.
 -Muad'dib: Lecture to the War College from The Stilgar Chronicle
@@ -559,7 +559,7 @@ Too many winds."
     His voice, he noted with pride, matched his features precisely. It unmistakably was the voice of the old Fremen, who certainly was dead by this time.
     Scytale sighed. It had been done with sympathy, he told himself, and the victims certainly had known their peril. Now, the young woman would have to be given her chance.
 
-= = = = = =
+===
 
 Empires do not suffer emptiness of purpose at the time of their creation. It is when they have become established that aims are lost and replaced by vague ritual.
 -Words of Muad'dib by Princess Irulan.
@@ -724,7 +724,7 @@ Empires do not suffer emptiness of purpose at the time of their creation. It is 
     "So ordered," Stilgar said.
     And Irulan, hiding a smile behind her hand, thought: It's true then. Our Emperor cannot see a Steersman. They are mutually blind. The conspiracy is hidden.
 
-= = = = = =
+===
 
 "Once more the drama begins."
 -The Emperor Paul Muad'dib on his ascension to the Lion Throne
@@ -846,7 +846,7 @@ Empires do not suffer emptiness of purpose at the time of their creation. It is 
     In her position above Paul, Alia sat with chin cupped in left hand, stared down at the ghola. A magnetic attraction about this Hayt reached up to her. Tleilaxu restoration had given him youth, an innocent intensity which called out to her. She'd understood Paul's unspoken plea. When oracles failed, one turned to real spies and physical powers. She wondered, though, at her own eagerness to accept this challenge. She felt a positive desire to be near this new man, perhaps to touch him.
     He's a danger to both of us, she thought.
 
-= = = = = =
+===
 
 Truth suffers from too much analysis.
 -Ancient Fremen Saying
@@ -919,7 +919,7 @@ Truth suffers from too much analysis.
     When she had gone, the Reverend Mother returned to her tarot cards, laying them out in the fire-eddy pattern. Immediately, she got the Kwisatz Haderach of the Major Arcana and the card lay coupled with the Eight of Ships: the sibyl hoodwinked and betrayed. These were not cards of good omen: they spoke of concealed resources for her enemies.
     She turned away from the cards, sat in agitation, wondering if Irulan might yet destroy them.
 
-= = = = = =
+===
 
 The Fremen see her as the Earth Figure, a demigoddess whose special charge is to protect the tribes through her powers of violence. She is Reverend Mother to their Reverend Mothers. To pilgrims who seek her out with demands that she restore virility or make the barren fruitful, she is a form of antimentat. She feeds on that proof that the "analytic" has limits. She represents ultimate tension. She is the virgin-harlot -- witty, vulgar, cruel, as destructive in her whims as a coriolis storm.
 -St. Alia of the Knife as taken from The Irulan Report
@@ -1029,7 +1029,7 @@ The Fremen see her as the Earth Figure, a demigoddess whose special charge is to
     "It's something on that order," Alia said.
     Stilgar nodded, his gaze fastened on Paul's face. "But whatever comes from behind the mountains must cross the dunes."
 
-= = = = = =
+===
 
 The most dangerous game in the universe is to govern from an oracular base. We do not consider ourselves wise enough or brave enough to play that game. The measures detailed here for regulation in lesser matters are as near as we dare venture to the brink of government. For our purposes, we borrow a definition from the Bene Gesserit and we consider the various worlds as gene pools, sources of teachings and teachers, sources of the possible. Our goal is not to rule, but to tap these gene pools, to learn, and to free ourselves from all restraints imposed by dependency and government.
 -"The Orgy as a Tool of Statecraft," Chapter Three of The Steersman's Guild
@@ -1208,7 +1208,7 @@ The most dangerous game in the universe is to govern from an oracular base. We d
     "I understand, m'Lord." 
     "I'm sure you do," Paul said.
 
-= = = = = =
+===
 
 Here lies a toppled god --  
 His fall was not a small one. 
@@ -1422,7 +1422,7 @@ A narrow and a tall one.
     "But why?" She shook her head. "Why Face Dancers?" 
     "There's a young woman dead out there," he said. "Perhaps no young woman is reported missing among the Fremen."
 
-= = = = = =
+===
 
 I think what a joy it is to be alive, and I wonder if I'll ever leap inward to the root of this flesh and know myself as once I was. The root is there. Whether any act of mine can find it, that remains tangled in the future. But all things a man can do are mine. Any act of mine may do it.
 -The Ghola Speaks Alia's Commentary
@@ -1519,7 +1519,7 @@ I am stricken by love's white flame!
     Just as his moon would go, they were gone. Still, his vision lay before him. Its terrible purpose gave him no choice.
     The flesh surrenders itself, he thought. Eternity takes back its own. Our bodies stirred these waters briefly, danced with a certain intoxication before the love of life and self, dealt with a few strange ideas, then submitted to the instruments of Time. What can we say of this? I occurred. I am not . . . yet, I occurred.
 
-= = = = = =
+===
 
 "You do not beg the sun for mercy."
 -Maud'dib's Travail from The Stilgar Commentary
@@ -1653,7 +1653,7 @@ I am stricken by love's white flame!
     Alia crossed to her brother, sensing his utter sadness. She touched a tear on his cheek with a Fremen gesture of awe, said: "We must not grieve for those dear to us before their passing."
     "Before their passing," Paul whispered. "Tell me, little sister, what is before?"
 
-= = = = = =
+===
 
 "I've had a bellyful of the god and priest business! You think I don't see my own mythos? Consult your data once more, Hayt. I've insinuated my rites into the most elementary human acts. The people eat in the name of Muad'dib! They make love in my name, are born in my name -- cross the street in my name. A roof beam cannot be raised in the lowliest hovel of far Gangishree without invoking the blessing of Muad'dib!"
 -Book of Diatribes from The Hayt Chronicle
@@ -1735,7 +1735,7 @@ I am stricken by love's white flame!
     "And if I do not?" 
     "We will feel the thunderbolt."
 
-= = = = = =
+===
 
 Oh, worm of many teeth,
 Canst thou deny what has no cure? 
@@ -1846,7 +1846,7 @@ Or hide the burnings of desire!
     She drew herself up, placed a hand on her abdomen. "I'm hungry. The medics tell me I must eat three or four times what I ate before. I'm frightened, beloved. It goes too fast."
     Too fast, he agreed. This fetus knows the necessity for speed.
 
-= = = = = =
+===
 
 The audacious nature of Muad'dib's actions may be seen in the fact that He knew from the beginning whither He was bound, yet not once did He step aside from that path. He put it clearly when He said: "I tell you that I come now to my time of testing when it will be shown that I am the Ultimate Servant." Thus He weaves all into One, that both friend and foe may worship Him. It is for this reason and this reason only that His Apostles prayed: "Lord, save us from the other paths which Muad'dib covered with the Waters of His Life. " Those "other paths" may be imagined only with the deepest revulsion.
 -from The Yiam-el-Din (Book of Judgment)
@@ -1936,7 +1936,7 @@ The audacious nature of Muad'dib's actions may be seen in the fact that He knew 
     Should he tell Bannerjee about the messenger's true nature? he wondered. No! Such an incident hadn't been written on the screen of his vision. Any deviation here carried precipitate violence. A moment of fulcrum had to be found, a place where he could will himself out of the vision.
     If such a moment existed . . .
 
-= = = = = =
+===
 
 No matter how exotic human civilization becomes, no matter the developments of life and society nor the complexity of the machine / human interface, there always come interludes of lonely power when the course of humankind, the very future of humankind, depends upon the relatively simple actions of single individuals.
 -from The Tlielaxu Godbuk
@@ -2064,7 +2064,7 @@ She is Alia . . . Alia . . . Alia . . . "
     The old Fremen tugged Paul's sleeve, nodded toward the exit. The crowd already was beginning to push in that direction. Paul allowed himself to be pressed along with them, the guide's hand upon his sleeve. There was the feeling in him then that his body had become the manifestation of some power he could no longer control. He had become a non-being, a stillness which moved itself. At the core of the non-being, there he existed, allowing himself to be led through the streets of his city, following a track so familiar to his visions that it froze his heart with grief,
     I should know what Alia saw, bethought, I have seen it enough times myself. And she didn't cry out against it . . . she saw the alternatives, too.
 
-= = = = = =
+===
 
 Production growth and income growth must not get out of step in my Empire. That is the substance of my command. There are to be no balance-of-payment difficulties between the different spheres of influence. And the reason for this is simply because I command it. I want to emphasize my authority in this area. I am the supreme energy-eater of this domain, and will remain so, alive or dead. My Government is the economy.
 -Order in Council The Emperor Paul Muad'dib
@@ -2181,7 +2181,7 @@ Production growth and income growth must not get out of step in my Empire. That 
     Paul sighed. The words of the vision had been spoken. "There'll be an accounting," he said, to complete it. Turning, he strode from the room, heard Bijaz foot-slapping behind.
     "Bygones, bygones," Bijaz muttered as they went. "Let bygones fall where they may. This has been a dirty day."
 
-= = = = = =
+===
 
 The convoluted wording of legalisms grew up around the necessity to hide from ourselves the violence we intend toward each other. Between depriving a man of one hour from his life and depriving him of his life there exists only a difference of degree. You have done violence to him, consumed his energy. Elaborate euphemisms may conceal your intent to kill, but behind any use of power over another the ultimate assumption remains: "I feed on your energy."
 -Addenda to Orders in Council The Emperor Paul Muad'dib
@@ -2265,7 +2265,7 @@ The convoluted wording of legalisms grew up around the necessity to hide from ou
     Paul turned, reached into the 'thopter, returned the command set to his personal band. "Call Chani," he ordered. "Tell her . . . tell her I am alive and will be with her soon."
     Now the forces gather, Paul thought. And he noted how strong was the smell of fear in the perspiration all around.
 
-= = = = = =
+===
 
 He has gone from Alia, 
 The womb of heaven! 
@@ -2453,7 +2453,7 @@ Martyrdom!
     The first of the Pleaders and Supplicants were approaching now. She turned away before Stilgar could respond. His face, though, was filled with the things she'd sensed in her mother's letter -- the replacement of morality and conscience with law.
     "You produce a deadly paradox."
 
-= = = = = =
+===
 
 Tibana was an apologist for Socratic Christianity, probably a native of IV Anbus who lived between the eight and ninth centuries before Corrino, likely in the second reign of Dalamak. Of his writings, only a portion survives from which this fragment is taken: "The hearts of all men dwell in the same wilderness."
 -from The Dunebuk of Irulan
@@ -2564,7 +2564,7 @@ Tibana was an apologist for Socratic Christianity, probably a native of IV Anbus
     "What is it you'd try to do with me?" 
     "A kindness," Bijaz said. "A simple kindness."
 
-= = = = = =
+===
 
 The sequential nature of actual events is not illuminated with lengthy precision by the powers of prescience except under the most extraordinary circumstances. The oracle grasps incidents cut out of the historic chain. Eternity moves. It inflicts itself upon the oracle and the supplicant alike. Let Muad'dib's subjects doubt his majesty and his oracular visions. Let them deny his powers. Let them never doubt Eternity.
 -The Dune Gospels
@@ -2694,7 +2694,7 @@ The sequential nature of actual events is not illuminated with lengthy precision
     "He is! Ohhh, you're so dense. He's part of the pattern. And it's too late . . . too late . . . too late . . ." 
     As she spoke, she felt her awareness descend, layer by layer. It came to rest directly behind her navel. Body and mind separated and merged in a storehouse of relic visions -- moving, moving . . . She heard a fetal heartbeat, a child of the future. The melange still possessed her, then, setting her adrift in Time. She knew she had tasted the life of a child not yet conceived. One thing certain about this child -- it would suffer the same awakening she had suffered. It would be an aware, thinking entity before birth.
 
-= = = = = =
+===
 
 There exists a limit to the force even the most powerful may apply without destroying themselves. Judging this limit is the true artistry of government. Misuse of power is the fatal sin. The law cannot be a tool of vengeance, never a hostage, nor a fortification against the martyrs it has created. You cannot threaten any individual and escape the consequences.
 -Muad'dib on Law, The Stilgar Commentary
@@ -2778,7 +2778,7 @@ There exists a limit to the force even the most powerful may apply without destr
     A blue-robed courier, passing as Hayt spoke, hesitated. "Did you say something, sirra?"
     Not looking at him, the ghola nodded. "I said everything."
 
-= = = = = =
+===
 
 There was a man so wise, 
 He jumped into 
@@ -3049,7 +3049,7 @@ And made himself a saint.
     "There are problems in this universe for which there are no answers," Paul said. "Nothing. Nothing can be done."
     As he spoke, Paul felt his link with the vision shatter. His mind cowered, overwhelmed by infinite possibilities. His lost vision became like the wind, blowing where it willed.
 
-= = = = = =
+===
 
 We say of Muad'dib that he has gone on a journey into that land where we walk without footprints.
 -Preamble to the Qizarate Creed
