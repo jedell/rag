@@ -1,10 +1,6 @@
 import os
 from typing import List
 
-from langchain_experimental.text_splitter import SemanticChunker
-from langchain_openai.embeddings import OpenAIEmbeddings
-
-text_splitter = SemanticChunker(OpenAIEmbeddings())
 
 def load_documents(path: str, chunk_size: int = None) -> List[str]:
     """
@@ -63,9 +59,9 @@ def chunk_text(text: str, chunk_size: int) -> List[str]:
     i.e https://python.langchain.com/docs/modules/data_connection/document_transformers/
     """
     # return [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]
-    docs = text_splitter.create_documents([text])
-    print("Chunks:", len(docs))
-    return [doc.page_content for doc in docs]
+    # docs = text_splitter.create_documents([text])
+    # print("Chunks:", len(docs))
+    # return [doc.page_content for doc in docs]
 
 if __name__ == "__main__":
     # documents = load_documents("data/Dune 1 Dune.txt", chunk_size='semantic')
@@ -78,7 +74,7 @@ if __name__ == "__main__":
 
     from transformers import AutoTokenizer
 
-    retriever_tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased', model_max_length=8192, max_length=2048)
+    retriever_tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased', model_max_length=8192)
 
     texts = [
         "Dune 1 Dune.txt",
@@ -111,14 +107,11 @@ if __name__ == "__main__":
                     start = 0
                     while start < len(chapter):
                         end = start + sub_chapter_len
-                        if end < len(chapter) and chapter[end] != ' ':
-                            in_quote = False
-                            while end < len(chapter) and (chapter[end-1] not in '.!?' or in_quote):
-                                if chapter[end] == '"' and not in_quote:
-                                    in_quote = True
-                                elif chapter[end] == '"' and in_quote:
-                                    in_quote = False
+                        if end < len(chapter):
+
+                            while end < len(chapter) and chapter[end] != '\n':
                                 end += 1
+
                         sub_chapters_split.append(chapter[start:end])
                         sub_chapter_char_lens.append((start, end))
                         start = end
@@ -140,9 +133,13 @@ if __name__ == "__main__":
 
         # save sub-chapters to separate files
         os.makedirs(f"data/chunks/dune{out_idx+1}", exist_ok=True)
+        # remove all from data/chunks/dune{out_idx+1}
+        for file in os.listdir(f"data/chunks/dune{out_idx+1}"):
+            os.remove(f"data/chunks/dune{out_idx+1}/{file}")
+
         for i, sub_chapter in enumerate(sub_chapters):
             with open(f"data/chunks/dune{out_idx+1}/dune{out_idx+1}_sub_chapter_{i+1}.txt", "w") as f:
-                f.write(sub_chapter)
+                f.write(sub_chapter.strip().replace("\t", "").replace("    ", "").replace("\n\n", "\n"))
 
 
     

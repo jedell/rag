@@ -1,5 +1,6 @@
 _model/
 data/chunks/
+data/generated/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
