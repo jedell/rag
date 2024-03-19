@@ -34,5 +34,7 @@ https://github.com/facebookresearch/faiss/wiki/Index-IO,-cloning-and-hyper-param
 https://github.com/facebookresearch/faiss/issues/2078
 
 https://docs.mistral.ai/guides/basic-RAG/
+
+https://github.com/david-smejkal/wiki2txt
 # rag
 

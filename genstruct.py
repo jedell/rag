@@ -61,7 +61,7 @@ In a low voice, Mapes said: "I meant no offense, my Lady."
 The following is a question answering chat interation between a user and an AI assistant based on the above text and related to the Dune universe.
 The user is a fan of the Dune series and is asking the AI assistant a question about the lore of Dune in order to gain more understanding of the Dune universe.
 The interaction can consist of multiple questions and answers with the questions starting as general and becoming more specific as the interaction progresses.
-Questions are related to the lore of Dune and can be answered from the above text. The user does not reference the above text in their questions.
+Questions are related to the lore of Dune and can be answered from the above text. The user has no knowledge of the above text and does not reference it in their question.
 The AI assistant's response to the question is grounded in information in the text.
 """
 }]
@@ -71,16 +71,16 @@ The AI assistant's response to the question is grounded in information in the te
 # print(tokenizer.decode(model.generate(inputs, max_new_tokens=2048)[0]).split(tokenizer.eos_token)[0])
 
 import os
-import os
 import asyncio
 import json
+import time
 from openai import AsyncOpenAI
 
 client = AsyncOpenAI()
 
 async def ask_dune_question(content):
     response = await client.chat.completions.create(
-        model="gpt-4-turbo-preview",
+        model="gpt-3.5-turbo-0125",
         messages=[
             {"role": "system", "content": content},
         ]
@@ -89,22 +89,44 @@ async def ask_dune_question(content):
 
 async def generate_dune_data():
     source_folders = [f"data/chunks/dune{i}" for i in range(1, 7)]
+    char_count = 0
     for i, source_folder in enumerate(source_folders, start=1):
+        print(f"Generating data for dune{i}")
         tasks = []
+        responses = []
         target_folder = f"data/generated/qa/dune{i}"
         if not os.path.exists(target_folder):
             os.makedirs(target_folder)
         all_data = []
         fail_data = []
+        start = time.time()
         for filename in os.listdir(source_folder):
             if filename.endswith(".txt"):
                 file_path = os.path.join(source_folder, filename)
                 with open(file_path, 'r', encoding='utf-8') as file:
                     content = file.read()
+                    if char_count / 4 > 70000:
+                        # await current tasks and append to responses
+                        responses.extend(await asyncio.gather(*tasks))
+                        tasks = []
+                        char_count = 0
+                        # sleep for what is remaining in 1 minutes from start
+                        time_elapsed = time.time() - start
+                        remaining = 60 - time_elapsed
+                        print(f"Sleeping for {remaining} seconds to avoid token per minute limit")
+                        if remaining > 0:
+                            time.sleep(remaining)
+                        else:
+                            time.sleep(1)
+                        start = time.time()
+                        char_count = 0
+                    char_count += len(content)
                     system_message = {
-                        'system': """Generate a question answering chat interaction between a user and an AI assistant based on the text snippet from a Dune novel below and more generally to the Dune universe by Frank Herbert.
-The question can be answered from the text in relation to the lore of Dune. The text is only available as a system message to aid the AI assistant in answering the question.
+                        'system': """Generate a question answering chat interaction between a user and an AI assistant based on the text snippet from one of the Dune novels by Frank Herbert below (marked [[[Content]]]).
+The generated chat question can be answered from the text in relation to the lore of Dune. The user has no knowledge of the below text and should not reference it in the question (i.e. using phrases such as "in the passaged" or "in the text").
+Again, the generated question should make no reference to any excerpts of the text and should not be a direct question about the text, but rather a question about the lore of Dune that can be answered from the content and analysis of the text.
 The AI assistant's response to the question should be grounded in facts, information, or analysis of the text content.
+If required, generate a multi-turn interaction where questions go from general to more specific.
 Follow this format for questions and answers:
 [[[User]]] <question>
 [[[Assistant]]] <response>
@@ -113,29 +135,50 @@ Follow this format for questions and answers:
                     }
                     system = system_message['system'] + system_message['content']
                     tasks.append(ask_dune_question(system))
-        responses = await asyncio.gather(*tasks)
+                    # response = await ask_dune_question(system)
+                    # tasks.append(response)
+        # responses = await asyncio.gather(*tasks)
+        responses.extend(await asyncio.gather(*tasks))
+        # responses = tasks
         for response, filename in zip(responses, os.listdir(source_folder)):
             # read content
             file_path = os.path.join(source_folder, filename)
             with open(file_path, 'r', encoding='utf-8') as file:
                 content = file.read()
             try:
-                question = response.split('[[[User]]]')[1].split('[[[Assistant]]]')[0].strip()
-                answer = response.split('[[[Assistant]]]')[1].strip()
-                data = {
-                    'file': filename,
-                    'content': content,
-                    'user': question,
-                    'assistant': answer
-                }
-                all_data.append(data)
+                user_splits = response.split('[[[User]]]')
+                assistant_splits = response.split('[[[Assistant]]]')
+                if len(user_splits) > 2 and len(assistant_splits) > 2:  # Multiple turns detected
+                    for i in range(1, len(user_splits)):
+                        try:
+                            question = user_splits[i].split('[[[Assistant]]]')[0].strip()
+                            answer = assistant_splits[i].strip()
+                            data = {
+                                'file': filename,
+                                'content': content,
+                                'user': question,
+                                'assistant': answer
+                            }
+                            all_data.append(data)
+                        except IndexError:  # In case of mismatch in counts, which should not happen
+                            continue
+                else:  # Single turn
+                    question = user_splits[1].split('[[[Assistant]]]')[0].strip()
+                    answer = assistant_splits[1].split('[[[User]]]')[0].strip()
+                    data = {
+                        'file': filename,
+                        'content': content,
+                        'user': question,
+                        'assistant': answer
+                    }
+                    all_data.append(data)
             except Exception as e:
                 fail_data.append({
                     'file': filename,
                     'error': str(e),
                     'response': response
                 })
-        output_file = os.path.join(target_folder, f"dune{i}_qa.json")
+        output_file = os.path.join(target_folder, f"dune{i}_qa7.json")
         with open(output_file, 'w', encoding='utf-8') as out_file:
             json.dump(all_data, out_file, ensure_ascii=False, indent=4)
         if fail_data:

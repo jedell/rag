@@ -6,7 +6,7 @@ from transformers import AutoModel, AutoTokenizer
 from pathlib import Path
 from utils import load_documents
 
-def main(generator_path: str, documents_path: str):
+def main(generator_path: str, documents_path: str, index_path: str):
 
     embed_dim = 768
 
@@ -19,13 +19,13 @@ def main(generator_path: str, documents_path: str):
     generator.eval()
     retriever.eval()
 
-    index = init_index(embed_dim)
+    index = init_index(embed_dim, index_path)
 
     # load documents into index
     documents = load_documents(documents_path, 2048)
     print("Chunks len", len(documents))
 
-    build_index(index, documents, retriever, retriever_tokenizer)
+    build_index(index, documents, retriever, retriever_tokenizer, index_path)
 
     prompt = "What is the meaning of life?"
 
@@ -39,8 +39,6 @@ def main(generator_path: str, documents_path: str):
     print("Completion:", compl)
     print("Distance:", distance)
 
-main("_model", "data")
-
-
+main("_model", "data", "index/dune.index")
 
 

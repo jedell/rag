@@ -62,6 +62,7 @@ def chunk_text(text: str, chunk_size: int) -> List[str]:
     # docs = text_splitter.create_documents([text])
     # print("Chunks:", len(docs))
     # return [doc.page_content for doc in docs]
+    return text
 
 if __name__ == "__main__":
     # documents = load_documents("data/Dune 1 Dune.txt", chunk_size='semantic')

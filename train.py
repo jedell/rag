@@ -6,19 +6,24 @@ from mistral.model import Transformer as Mistral
 from mistral.tokenizer import Tokenizer
 from transformers import AutoTokenizer, AutoModel
 import loralib as lora
+from pathlib import Path
+from retriever.index import init_index
 
 # Assuming `YourDataset` is a PyTorch Dataset returning (query, relevant_document, target_text)
 dataset = YourDataset()
 dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
 
-generator_tokenizer = Tokenizer()
-retriever_tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
-
 # Initialize models
-matryoshka_dim = 512
+matryoshka_dim = 768
+generator_path = "_model"
 
-retriever = AutoModel.from_pretrained('nomic-ai/nomic-embed-text-v1.5', trust_remote_code=True, safe_serialization=True)
-generator = Mistral()  # Your Mistral model, adapted for LoRA
+generator_tokenizer = Tokenizer(str(Path(generator_path) / "tokenizer.model"))
+retriever_tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased', model_max_length=8192)
+
+generator = Mistral.from_folder(Path(generator_path))
+retriever = AutoModel.from_pretrained('nomic-ai/nomic-embed-text-v1.5', trust_remote_code=True, safe_serialization=True, rotary_scaling_factor=2)
+
+index = init_index(matryoshka_dim, "index/dune.index")
 
 lora.mark_only_lora_as_trainable(generator, bias='all')
 
