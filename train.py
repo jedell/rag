@@ -1,4 +1,5 @@
 import torch
+import torch.nn.functional as F
 from transformers import AdamW
 from torch.utils.data import DataLoader
 from your_dataset import YourDataset
@@ -8,6 +9,7 @@ from transformers import AutoTokenizer, AutoModel
 import loralib as lora
 from pathlib import Path
 from retriever.index import init_index
+from retriever.nomic import mean_pooling
 
 # Assuming `YourDataset` is a PyTorch Dataset returning (query, relevant_document, target_text)
 dataset = YourDataset()
@@ -27,18 +29,53 @@ index = init_index(matryoshka_dim, "index/dune.index")
 
 lora.mark_only_lora_as_trainable(generator, bias='all')
 
+# init train args
+num_epochs = 10
+top_k = 5
+
 # Optimizers
 retriever_optimizer = AdamW(retriever.parameters(), lr=5e-5)
 generator_optimizer = AdamW(generator.parameters(), lr=5e-5)
 
+# Scheduler
+retriever_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(retriever_optimizer, T_max=num_epochs)
+generator_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(generator_optimizer, T_max=num_epochs)
+
 def loss_fn(output, target):
-    # Your loss function here
-    return
+    return -torch.sum(torch.log(torch.softmax(output, dim=1)[range(len(target)), target]))
+
+def train_step(generator, retriever, batch):
+    input_ids, retriever_inputs, labels = batch
+    B = input_ids.shape[0]
+
+    # embed
+    embeded_inputs = retriever(**retriever_inputs)
+
+    embeddings = mean_pooling(embeded_inputs, retriever_inputs['attention_mask'])
+
+    if matryoshka_dim is not None:
+        embeddings = F.layer_norm(embeddings, normalized_shape=(embeddings.shape[1],))
+        embeddings = embeddings[:, :matryoshka_dim]
+    embeddings = F.normalize(embeddings, p=2, dim=1)
+
+    # retrieve
+    D, I = index.search(embeddings, k=top_k) # distance, index
+
+    # I = (batch_size, top_k), top_k dimension is the document ids
+    # assume dataset.get_document(idx) returns tokenized document context ids
+    # return context_ids tensor over batched I, context_ids = (batch_size, top_k, max_length)
+    context_ids = torch.stack([dataset.get_documents(indicies) for indicies in I])
+
+    # batch concat context_ids and input_ids
+    sources = torch.stack([torch.stack([torch.cat((con, input_ids[idx], labels[idx]), dim=0) for con in context_ids[idx]]) for idx in range(B)])
+    
+    
+
+    return loss
 
 # Training loop  
 for epoch in range(num_epochs):
-    for batch in dataloader:
-        query, relevant_document, target_text = batch
+    for step, batch in enumerate(dataloader):
 
         # Step 1: Encode query with the retriever
         input_ids = tokenizer(query, return_tensors="pt", padding=True, truncation=True).input_ids

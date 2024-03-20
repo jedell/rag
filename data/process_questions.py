@@ -90,10 +90,39 @@ async def clean_up_processed_data():
 # asyncio.run(clean_up_processed_data())
 
 # sample random items from all_processed_data_cleaned.json and print them
+# file_path = 'data/generated/processed/all_processed_data_cleaned.json'
+# with open(file_path, 'r', encoding='utf-8') as f:
+#     data = json.load(f)
+
+# print(random.choice(data))
+
+# iterate through all_processed_data_cleaned.json, keys user, assistant, content
+# if '[[[Content]]]' or '[[[User]]]' or '[[[Assistant]]]' in any of the keys remove
 file_path = 'data/generated/processed/all_processed_data_cleaned.json'
 with open(file_path, 'r', encoding='utf-8') as f:
     data = json.load(f)
 
-print(random.choice(data))
+for item in data:
+    if '[[[Content]]]' in item['content']:
+        item['content'] = item['content'].replace('[[[Content]]]', '')
+    if '[[[User]]]' in item['user']:
+        item['user'] = item['user'].replace('[[[User]]]', '')
+    if '[[[Assistant]]]' in item['assistant']:
+        item['assistant'] = item['assistant'].replace('[[[Assistant]]]', '')
 
+    if '[[[Assistant]]]' in item['user']:
+        # remove assistant and everything after
+        item['user'] = item['user'].split('[[[Assistant]]]')[0]
+
+    if '[[[Content]]]' in item['assistant']:
+        # remove user and everything after
+        item['assistant'] = item['assistant'].split('[[[Content]]]')[0]
+
+    if '[[[User]]]' in item['assistant']:
+        # remove user and everything after
+        item['assistant'] = item['assistant'].split('[[[User]]]')[0]
+
+target_folder = 'data/generated/processed/all_processed_data_cleaned_no_markers_split.json'
+with open(target_folder, 'w', encoding='utf-8') as f:
+    json.dump(data, f, ensure_ascii=False, indent=4)
 

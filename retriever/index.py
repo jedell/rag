@@ -7,15 +7,12 @@ from .nomic import embed, encode_document
 # https://www.llamaindex.ai/open-source
 # https://python.langchain.com/docs/modules/data_connection/vectorstores/
 
-def init_index(embed_dim, index_path=None):
+def init_index(embed_dim, index_path=None, M=16):
     print("Initializing index...")
     if index_path and os.path.exists(index_path):
         return read_index(index_path)
-    index = faiss.IndexFlatL2(embed_dim) #IndexHNSWFlat(embed_dim)
+    index = faiss.IndexHNSWFlat(embed_dim, M)
     return index
-
-def add(index, embeddigns):
-    index.add(embeddigns)
 
 def search(index, query, k):
     D, I = index.search(query, k) # distance, index
@@ -26,7 +23,7 @@ def build_index(index, documents, retriever, tokenizer, index_path=None):
     for doc in documents:
         encoded_doc = encode_document(doc, tokenizer)
         embeddings = embed(encoded_doc, retriever)
-        add(index, embeddings)
+        index.add(embeddings)
 
     if index_path:
         write_index(index, index_path)
