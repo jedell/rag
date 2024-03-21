@@ -1,5 +1,7 @@
 import torch
 import torch.nn.functional as F
+import numpy as np
+from typing import List
 from transformers import AdamW
 from torch.utils.data import DataLoader
 from your_dataset import YourDataset
@@ -8,7 +10,7 @@ from mistral.tokenizer import Tokenizer
 from transformers import AutoTokenizer, AutoModel
 import loralib as lora
 from pathlib import Path
-from retriever.index import init_index
+from retriever.index import init_index, get_top_docs
 from retriever.nomic import mean_pooling
 
 # Assuming `YourDataset` is a PyTorch Dataset returning (query, relevant_document, target_text)
@@ -44,6 +46,21 @@ generator_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(generator_optim
 def loss_fn(output, target):
     return -torch.sum(torch.log(torch.softmax(output, dim=1)[range(len(target)), target]))
 
+def process_docs(docs: List[List[str]], input_strings: List[str], n_docs: int):
+    context_strings = [
+        f"{docs[i][j]}\n{input_strings[i]}"
+        for i in range(len(docs))
+        for j in range(n_docs)
+    ]
+    context_inputs = retriever_tokenizer.batch_encode_plus(
+        context_strings,
+        return_tensors="pt",
+        padding="max_length",
+        truncation=True,
+        max_length=8192
+    )
+    return context_inputs['input_ids'], context_inputs['attention_mask']
+
 def train_step(generator, retriever, batch):
     input_ids, retriever_inputs, labels = batch
     B = input_ids.shape[0]
@@ -56,20 +73,38 @@ def train_step(generator, retriever, batch):
     if matryoshka_dim is not None:
         embeddings = F.layer_norm(embeddings, normalized_shape=(embeddings.shape[1],))
         embeddings = embeddings[:, :matryoshka_dim]
-    embeddings = F.normalize(embeddings, p=2, dim=1)
+    embeddings_batched = F.normalize(embeddings, p=2, dim=1)
 
-    # retrieve
-    D, I = index.search(embeddings, k=top_k) # distance, index
+    # retrieve()
+    I = []
+    vectors_batched = []
+    for embeddings in embeddings_batched:
+        ids, retrieved_doc_embeds = get_top_docs(index, embeddings, top_k)
+        I.extend(ids)
+        vectors_batched.extend(retrieved_doc_embeds)
+    I = np.array(I)
+    vectors_batched = np.array(vectors_batched)
+    # get embbeddings from index by I
+
+    retrieved_doc_embeds = torch.tensor(vectors_batched)
 
     # I = (batch_size, top_k), top_k dimension is the document ids
     # assume dataset.get_document(idx) returns tokenized document context ids
     # return context_ids tensor over batched I, context_ids = (batch_size, top_k, max_length)
-    context_ids = torch.stack([dataset.get_documents(indicies) for indicies in I])
+    docs = [dataset.get_documents(idx) for idx in I]
 
-    # batch concat context_ids and input_ids
-    sources = torch.stack([torch.stack([torch.cat((con, input_ids[idx], labels[idx]), dim=0) for con in context_ids[idx]]) for idx in range(B)])
+    input_strings = retriever_tokenizer.batch_decode(docs, skip_special_tokens=True)
+
+    context_input_ids, context_attention_mask = process_docs(docs, input_strings, top_k)
     
-    
+    # https://github.com/huggingface/transformers/blob/66ce9593fdb8e340df546ddd0774eb444f17a12c/src/transformers/models/rag/modeling_rag.py#L644
+    doc_scores = torch.bmm(
+        embeddings_batched.unsqueeze(1),
+        retrieved_doc_embeds.transpose(1, 2)
+    ).squeeze(1)
+
+    # generator... TODO
+
 
     return loss
 
