@@ -1,6 +1,84 @@
 import os
 from typing import List
 
+import torch
+import loralib as lora
+
+import torch
+from typing import List
+from torch.utils.data import DataLoader, DistributedSampler
+import transformers
+from transformers import AutoTokenizer
+import loralib as lora
+from dataset import init_dataset, build_mistral_instruct_dataset
+
+def setup_data(
+    generator_tokenizer: transformers.PreTrainedTokenizer,
+    retriever_tokenizer: transformers.PreTrainedTokenizer,
+    data_path: str,
+    batch_size: int = 16,
+    shuffle: bool = True
+):
+    # dm = init_dataset(generator_tokenizer, retriever_tokenizer, data_path)
+    dm = build_mistral_instruct_dataset(data_path, generator_tokenizer, retriever_tokenizer)
+
+    sampler = DistributedSampler(
+        dataset=dm['train'],
+        num_replicas=1,
+        rank=0,
+        shuffle=shuffle,
+        seed=0,
+    )
+    dataloader = DataLoader(
+        dm['train'],
+        batch_size=batch_size,
+        collate_fn=dm['collator']
+    )
+
+    return dataloader, sampler, dm['train']
+
+def save_checkpoint(
+        epoch: int,
+        total_epochs: int,
+        max_steps_per_epoch: int,
+        retriever_optimizer: torch.optim.Optimizer,
+        generator_optimizer: torch.optim.Optimizer,
+        generator: torch.nn.Module,
+        retriever: torch.nn.Module,
+    ) -> None:
+    """
+    Checkpoint the state of the recipe. The constructed checkpoint state dict
+    contains the following information:
+    - Merged weights with key MODEL_KEY
+    - Adapter weights with key ADAPTER_KEY
+    - Relevant recipe state if training is not complete
+
+    Checkpointer will save the merged weights, adapter weights and recipe state in
+    different checkpoint files. To correctly resume from training, the adapter weights
+    and recipe state must be provided along with the base model weights.
+    """
+    ckpt_dict = {}
+    # if training is in-progress, checkpoint the optimizer state as well
+    if epoch + 1 < total_epochs:
+        ckpt_dict.update(
+            {
+                "retriever_optimizer": retriever_optimizer.state_dict(),
+                "generator_optimizer": generator_optimizer.state_dict(),
+                "epoch": epoch,
+                "total_epochs": total_epochs,
+                "max_steps_per_epoch": max_steps_per_epoch,
+            }
+        )
+
+    # construct state dict with only lora weights
+    lora_state_dict = lora.lora_state_dict(generator)
+
+    ckpt_dict.update({"generator": lora_state_dict})
+    
+    # save retriever
+    retriever_state_dict = {k: v.cpu() for k, v in retriever.state_dict().items()}
+    ckpt_dict.update({"retriever": retriever_state_dict})
+
 
 def load_documents(path: str, chunk_size: int = None) -> List[str]:
     """
@@ -10,25 +88,26 @@ def load_documents(path: str, chunk_size: int = None) -> List[str]:
     """
     documents = []
     if os.path.isdir(path):
-        # If path is a directory, iterate over all files in the directory
-        for filename in os.listdir(path):
-            file_path = os.path.join(path, filename)
-            try:
-                with open(file_path, 'r', encoding='utf-8') as file:
-                    content = file.read()
-                    if chunk_size is not None:
-                        print(f"Chunking {file_path}, chunk size: {chunk_size}")
-                        documents.extend(chunk_text(content, chunk_size))
-                    else:
-                        documents.append(content)
-            except UnicodeDecodeError:
-                with open(file_path, 'r', encoding='latin-1') as file:
-                    content = file.read()
-                    if chunk_size is not None:
-                        print(f"Chunking {file_path}, chunk size: {chunk_size}")
-                        documents.extend(chunk_text(content, chunk_size))
-                    else:
-                        documents.append(content)
+        # If path is a directory, recursively iterate over all files in the directory and subdirectories
+        for root, dirs, files in os.walk(path):
+            for filename in files:
+                file_path = os.path.join(root, filename)
+                try:
+                    with open(file_path, 'r', encoding='utf-8') as file:
+                        content = file.read()
+                        if chunk_size is not None:
+                            print(f"Chunking {file_path}, chunk size: {chunk_size}")
+                            documents.extend(chunk_text(content, chunk_size))
+                        else:
+                            documents.append(content)
+                except UnicodeDecodeError:
+                    with open(file_path, 'r', encoding='latin-1') as file:
+                        content = file.read()
+                        if chunk_size is not None:
+                            print(f"Chunking {file_path}, chunk size: {chunk_size}")
+                            documents.extend(chunk_text(content, chunk_size))
+                        else:
+                            documents.append(content)
     elif os.path.isfile(path):
         # If path is a single file, read the file
         try:

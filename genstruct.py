@@ -76,8 +76,8 @@ import json
 import time
 from openai import AsyncOpenAI
 
-client = AsyncOpenAI()
-
+# client = AsyncOpenAI()
+client = None
 async def ask_dune_question(content):
     response = await client.chat.completions.create(
         model="gpt-3.5-turbo-0125",
@@ -186,5 +186,70 @@ Follow this format for questions and answers:
             with open(fail_file, 'w', encoding='utf-8') as out_file:
                 json.dump(fail_data, out_file, ensure_ascii=False, indent=4)
 
-asyncio.run(generate_dune_data())
+# asyncio.run(generate_dune_data())
+
+
+# read data/dune.jsonl, list of objects with keys file, content, user, assistant
+def convert_to_mistral_instruction_format(path):
+    with open(path, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    
+    # reformat each dict in data to the following:
+    # Instruct: conversational data stored in the "interactions" key in the form of a list. Each list item is a dictionary containing the "text" and "is_user" keys. is_user is a boolean, if it is equal to True the loss will not be calculated on these tokens. E.g.:
+    # {"interactions": [{"is_user": true, "text": "User interaction n°1 contained in document n°1"}, {"is_user": false, "text": "Bot interaction n°1 contained in document n°1"}, {"is_user": true, "text": "User interaction n°2 contained in document n°1"}, {"is_user": false, "text": "Bot interaction n°2 contained in document n°1"}]}
+    # {"interactions": [{"is_user": true, "text": "User interaction n°1 contained in document n°2"}, {"is_user": false, "text": "Bot interaction n°1 contained in document n°2"}, {"is_user": true, "text": "User interaction n°2 contained in document n°2"}, {"is_user": false, "text": "Bot interaction n°2 contained in document n°2"}, {"is_user": true, "text": "User interaction n°3 contained in document n°2"}, {"is_user": false, "text": "Bot interaction n°3 contained in document n°2"}]}
+
+    mistral_instruct = []
+
+    for d in data:
+        mistral_instruct.append({
+            "interactions": [
+                {"is_user": True, "text": d["user"]},
+                {"is_user": False, "text": d["assistant"]}
+            ],
+            "content": d["content"],
+            "file": d["file"]
+        })
+
+    target_path = "data/dune_mistral_instruct.jsonl"
+    with open(target_path, 'w', encoding='utf-8') as out_file:
+        out_file.write(json.dumps(mistral_instruct))
+
+    mistral_instruct_chained = []
+
+    # create map for all elements in data where the file names are equal
+    file_name_map = {}
+    for d in data:
+        if d["file"] not in file_name_map:
+            file_name_map[d["file"]] = []
+        file_name_map[d["file"]].append(d)
+
+    # for each file name in file_name_map, create a mistral instruct format dataset
+    # for each user assistant pair, create a new interaction
+    for file_name, file_data in file_name_map.items():
+
+        interactions = []
+        for data in file_data:
+            interactions.append({
+                "is_user": True,
+                "text": data["user"]
+            })
+            interactions.append({
+                "is_user": False,
+                "text": data["assistant"]
+            })
+
+        mistral_instruct_chained.append(
+            {
+                "interactions": interactions,
+                "content": file_data[0]["content"],
+                "file": file_data[0]["file"]
+            }
+        )
+
+    target_path = "data/dune_mistral_instruct_chained.jsonl"
+    with open(target_path, 'w', encoding='utf-8') as out_file:
+        out_file.write(json.dumps(mistral_instruct_chained))
+
+convert_to_mistral_instruction_format("data/dune.jsonl")
 
