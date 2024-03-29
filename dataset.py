@@ -128,8 +128,8 @@ def tokenize_instruct(
         retriever_tokenizer: transformers.PreTrainedTokenizer
     ) -> Dict:
         """Tokenize a list of strings."""
-        tokens = [generator_tokenizer.bos_token_id]
-        masks = [False]
+        tokens = []
+        masks = []
         # TODO: handle if chain of user queries
         retriever_tokens = []
         eos_token_id = generator_tokenizer.eos_token_id
@@ -180,7 +180,7 @@ class MistralCollator(object):
         input_ids = torch.nn.utils.rnn.pad_sequence(
             input_ids, batch_first=True, padding_value=self.generator_pad_token_id
         )
-        labels = torch.nn.utils.rnn.pad_sequence(labels, batch_first=True, padding_value=IGNORE_INDEX)
+        labels = torch.nn.utils.rnn.pad_sequence(labels, batch_first=True, padding_value=self.generator_pad_token_id)
         mask = torch.nn.utils.rnn.pad_sequence(mask, batch_first=True, padding_value=False)
         retriever_tokens = torch.nn.utils.rnn.pad_sequence(
             retriever_tokens, batch_first=True, padding_value=self.retriever_pad_token_id
@@ -194,7 +194,7 @@ class MistralCollator(object):
             mask=mask,
             retriever_tokens=retriever_tokens,
             retriever_attn_mask=retriever_attn_mask,
-            context_src=[instance['context_src'] for instance in instances]
+            context_src=[instance['context_src'] for instance in instances],
         )
 
 
@@ -224,7 +224,7 @@ class MistralInstructDataset(Dataset):
                 labels=y,
                 mask=masks,
                 retriever_tokens=retriever_tokens,
-                context_src=context_src
+                context_src=context_src,
             ))
 
         self.data = data

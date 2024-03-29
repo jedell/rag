@@ -64,6 +64,7 @@ def embed(inputs, retriever, matryoshka_dim=None, eval=True):
 
     return embeddings
 
+
     
 
     

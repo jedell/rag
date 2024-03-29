@@ -41,8 +41,7 @@ def save_checkpoint(
         epoch: int,
         total_epochs: int,
         max_steps_per_epoch: int,
-        retriever_optimizer: torch.optim.Optimizer,
-        generator_optimizer: torch.optim.Optimizer,
+        optimizer: torch.optim.Optimizer,
         generator: torch.nn.Module,
         retriever: torch.nn.Module,
     ) -> None:
@@ -62,8 +61,7 @@ def save_checkpoint(
     if epoch + 1 < total_epochs:
         ckpt_dict.update(
             {
-                "retriever_optimizer": retriever_optimizer.state_dict(),
-                "generator_optimizer": generator_optimizer.state_dict(),
+                "optimizer": optimizer.state_dict(),
                 "epoch": epoch,
                 "total_epochs": total_epochs,
                 "max_steps_per_epoch": max_steps_per_epoch,
@@ -142,6 +140,18 @@ def chunk_text(text: str, chunk_size: int) -> List[str]:
     # print("Chunks:", len(docs))
     # return [doc.page_content for doc in docs]
     return text
+
+
+import wandb
+
+class Logger:
+    def __init__(self, project_name, config=None):
+        self.project_name = project_name
+        self.config = config
+        wandb.init(project=self.project_name, config=self.config)
+    
+    def log(self, metrics, step=None):
+        wandb.log(metrics, step=step)
 
 if __name__ == "__main__":
     # documents = load_documents("data/Dune 1 Dune.txt", chunk_size='semantic')
