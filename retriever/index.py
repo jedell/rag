@@ -35,7 +35,7 @@ def get_top_docs(index, embeddings: np.ndarray, n_docs=5, aux_dim=False) -> Tupl
         aux_dim = np.zeros(len(embeddings), dtype="float32").reshape(-1, 1)
         query_nhsw_vectors = np.hstack((embeddings.detach().numpy(), aux_dim))
     else:
-        query_nhsw_vectors = embeddings.unsqueeze(0).detach().numpy()
+        query_nhsw_vectors = embeddings.unsqueeze(0).cpu().detach().numpy()
     _, docs_ids = index.search(query_nhsw_vectors, n_docs)
     vectors = [[index.reconstruct(int(doc_id)) for doc_id in doc_ids] for doc_ids in docs_ids]
     return docs_ids, np.array(vectors)

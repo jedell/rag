@@ -48,10 +48,11 @@ class RagModel(nn.Module):
                 )
                 doc_tokens = torch.tensor(doc_tokens)
                 doc_mask = torch.tensor([False] * (len(doc_tokens)))
+                
+                assert input_ids[j].shape[0] == labels[j].shape[0] == masks[j].shape[0]
+                context_tokens = torch.cat((doc_tokens, input_ids[j]))
+                context_mask = torch.cat((doc_mask, torch.tensor([False]), masks[j][:-1]))
 
-                assert input_ids[i].shape[0] == labels[i].shape[0] == masks[i].shape[0]
-                context_tokens = torch.cat((doc_tokens, input_ids[i]))
-                context_mask = torch.cat((doc_mask, torch.tensor([False]), masks[i]))
 
                 assert context_tokens.shape[0] == context_mask.shape[0]
 

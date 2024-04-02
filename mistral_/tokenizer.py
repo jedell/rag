@@ -1,7 +1,6 @@
 from pathlib import Path
-from typing import List
-
 from sentencepiece import SentencePieceProcessor
+from typing import List
 
 
 class Tokenizer:
@@ -26,13 +25,11 @@ class Tokenizer:
     def pad_id(self) -> int:
         return self._model.pad_id()
 
-    def encode(self, s: str, bos: bool = True, eos: bool = False) -> List[int]:
+    def encode(self, s: str, bos: bool = True) -> List[int]:
         assert isinstance(s, str)
         t = self._model.encode(s)
         if bos:
             t = [self.bos_id, *t]
-        if eos:
-            t = [*t, self.eos_id]
         return t
 
     def decode(self, t: List[int]) -> str:

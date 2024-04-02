@@ -1,6 +1,5 @@
-from typing import Tuple
-
 import torch
+from typing import Tuple
 
 
 def precompute_freqs_cis(dim: int, end: int, theta: float) -> torch.Tensor:
