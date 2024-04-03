@@ -4,6 +4,7 @@ data/generated/
 data/*.jsonl
 index/
 wandb/
+_run/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

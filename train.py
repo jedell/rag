@@ -9,6 +9,7 @@ from pathlib import Path
 from retriever.index import init_index
 from loss import loss_fn
 from model import RagModel
+# from finetune.checkpointing import save_checkpoint
 from finetune.wrapped_model import build_model, load_initial_model
 from finetune.args import TrainArgs
 from finetune.utils import TrainState, logged_closing, set_random_seed
@@ -32,7 +33,7 @@ generator_path = "_model"
 batch_size = 1
 top_k = 1
 
-args: TrainArgs = TrainArgs.load(Path(generator_path, '7b_lora.yaml'), drop_extra_fields=False)
+args: TrainArgs = TrainArgs.load(Path('config', '7b_lora.yaml'), drop_extra_fields=False)
 args.num_microbatches = batch_size * top_k
 
 set_random_seed(args.seed)
@@ -48,7 +49,7 @@ gtokenizer = AutoTokenizer.from_pretrained('mistralai/Mistral-7B-Instruct-v0.2',
 rtokenizer = AutoTokenizer.from_pretrained('bert-base-uncased', model_max_length=8192)
 gtokenizer.pad_token = gtokenizer.eos_token
 
-g = build_model(folder=Path(generator_path), train_args=args)
+g = build_model(folder=Path('config'), train_args=args)
 
 r = AutoModel.from_pretrained(
     'nomic-ai/nomic-embed-text-v1.5',
