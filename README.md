@@ -39,7 +39,7 @@ https://github.com/david-smejkal/wiki2txt
 # rag
 
 # RUN
-CUDA_VISIBLE_DEVICES=0,1 torchrun --nproc-per-node 1 --master_port $RANDOM -m train
+CUDA_VISIBLE_DEVICES=0,1 RANK=0 WORLD_SIZE=2 torchrun --nproc-per-node 1 --master_port $RANDOM -m train
 wget -c https://models.mistralcdn.com/mistral-7b-v0-2/Mistral-7B-v0.2-Instruct.tar
 tar -xf Mistral-7B-v0.2-Instruct.tar
 

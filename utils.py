@@ -145,13 +145,16 @@ def chunk_text(text: str, chunk_size: int) -> List[str]:
 import wandb
 
 class Logger:
-    def __init__(self, project_name, config=None):
+    def __init__(self, project_name, config=None, is_master=True):
         self.project_name = project_name
         self.config = config
-        wandb.init(project=self.project_name, config=self.config)
+        self.is_master = is_master
+        if self.is_master:
+            wandb.init(project=self.project_name, config=self.config)
     
     def log(self, metrics, step=None):
-        wandb.log(metrics, step=step)
+        if self.is_master:
+            wandb.log(metrics, step=step)
 
 if __name__ == "__main__":
     # documents = load_documents("data/Dune 1 Dune.txt", chunk_size='semantic')

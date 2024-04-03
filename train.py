@@ -4,6 +4,7 @@ import torch
 import torch.distributed as dist
 from torch.distributed import barrier
 import torch.nn.parallel as torch_ddp
+import torch.distributed.fsdp.wrap as torch_wrap
 from transformers import AdamW
 from transformers import AutoTokenizer, AutoModel
 from pathlib import Path
@@ -47,6 +48,12 @@ our_initialize_model_parallel("nccl", args.n_replica)
 
 barrier()
 
+matryoshka_dim = 768
+
+ind = init_index(matryoshka_dim, "index/dune.index")
+documents_path = "data/chunks"
+documents = load_documents(documents_path)
+
 gtokenizer = AutoTokenizer.from_pretrained('mistralai/Mistral-7B-Instruct-v0.2', model_max_length=8192)
 rtokenizer = AutoTokenizer.from_pretrained('bert-base-uncased', model_max_length=8192)
 gtokenizer.pad_token = gtokenizer.eos_token
@@ -60,35 +67,45 @@ r = AutoModel.from_pretrained(
     rotary_scaling_factor=2
 )
 
-with torch_wrap.enable_wrap(
-        wrapper_cls=torch_ddp.DistributedDataParallel, **{
-        "mixed_precision": MixedPrecision(
-            param_dtype=torch.bfloat16,
-            reduce_dtype=torch.float32,
-            buffer_dtype=torch.bfloat16,
-        )
-    }
-):
-
-    r = torch_wrap.wrap(r)
-
-assert isinstance(r, torch_ddp.DistributedDataParallel)
-logger.info(f"Wrapped model with DDP: {r}")
-
-matryoshka_dim = 768
-
-ind = init_index(matryoshka_dim, "index/dune.index")
-documents_path = "data/chunks"
-documents = load_documents(documents_path)
-
 model = RagModel(g, r, gtokenizer, rtokenizer, ind)
+model.to(device)
 
-# move into RagModel
-# lora.mark_only_lora_as_trainable(model.generator, bias='all')
+ddp_params = {
+    "mixed_precision": MixedPrecision(
+        param_dtype=torch.bfloat16,
+        reduce_dtype=torch.float32,
+        buffer_dtype=torch.bfloat16,
+    )
+}
+
+# with torch_wrap.enable_wrap(
+#         wrapper_cls=torch_ddp.DistributedDataParallel, **ddp_params
+# ):
+
+#     model.retriever = torch_wrap.wrap(model.retriever)
+
+# assert isinstance(model, torch_ddp.DistributedDataParallel)
+# logging.info(f"Wrapped model with DDP: {model.retriever}")
+
+with torch_wrap.enable_wrap(
+        wrapper_cls=torch_ddp.DistributedDataParallel, **ddp_params
+    ):
+
+    # only finetune LoRA parameters and freeze before wrapping
+    for name, param in model.generator.named_parameters():
+        if "lora" in name or "norm" in name:
+            param.requires_grad = True
+        else:
+            param.requires_grad = False
+
+    model = torch_wrap.wrap(model)
+
+assert isinstance(model, torch_ddp.DistributedDataParallel)
+logging.info(f"Wrapped model with DDP: {model}")
 
 dataloader, sampler, train_ds = setup_data(
-    model.generator_tokenizer,
-    model.retriever_tokenizer,
+    model.module.generator_tokenizer,
+    model.module.retriever_tokenizer,
     "data/dune_mistral_instruct.jsonl",
     batch_size,
     True
@@ -102,21 +119,25 @@ clip_grad_norm = 1.0
 ckpt_freq = 1
 log_freq = 1
 
-logger = Logger("dune-rag", {
-    "epochs": num_epochs,
-    "steps": steps_per_epoch,
-    "clip_grad_norm": clip_grad_norm,
-    "ckpt_freq": ckpt_freq,
-    "log_freq": log_freq,
-    "batch_size": batch_size,
-    "top_k": top_k,
-    "start_lr": start_lr,
-    "matryoshka_dim": matryoshka_dim,
-})
+logger = Logger(
+    "dune-rag",
+    {
+        "epochs": num_epochs,
+        "steps": steps_per_epoch,
+        "clip_grad_norm": clip_grad_norm,
+        "ckpt_freq": ckpt_freq,
+        "log_freq": log_freq,
+        "batch_size": batch_size,
+        "top_k": top_k,
+        "start_lr": start_lr,
+        "matryoshka_dim": matryoshka_dim,
+    },
+    is_master=get_rank() == 0
+)
 
 # Optimizers
 optimizer = AdamW(
-    model.parameters(),
+    model.module.parameters(),
     lr=start_lr,
     betas=(0.9, 0.95),
     eps=1e-08,
@@ -133,7 +154,7 @@ lr_scheduler = torch.optim.lr_scheduler.OneCycleLR(
     pct_start=0.5,
 )
 
-load_initial_model(model.generator, args.initial_model_path)
+load_initial_model(model.module.generator, args.initial_model_path)
 
 model.train()
 
