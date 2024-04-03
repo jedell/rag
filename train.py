@@ -3,12 +3,14 @@ import fire
 import torch
 import torch.distributed as dist
 from torch.distributed import barrier
+import torch.nn.parallel as torch_ddp
 from transformers import AdamW
 from transformers import AutoTokenizer, AutoModel
 from pathlib import Path
 from retriever.index import init_index
 from loss import loss_fn
 from model import RagModel
+from torch.distributed.fsdp import MixedPrecision
 # from finetune.checkpointing import save_checkpoint
 from finetune.wrapped_model import build_model, load_initial_model
 from finetune.args import TrainArgs
@@ -57,6 +59,21 @@ r = AutoModel.from_pretrained(
     safe_serialization=True,
     rotary_scaling_factor=2
 )
+
+with torch_wrap.enable_wrap(
+        wrapper_cls=torch_ddp.DistributedDataParallel, **{
+        "mixed_precision": MixedPrecision(
+            param_dtype=torch.bfloat16,
+            reduce_dtype=torch.float32,
+            buffer_dtype=torch.bfloat16,
+        )
+    }
+):
+
+    r = torch_wrap.wrap(r)
+
+assert isinstance(r, torch_ddp.DistributedDataParallel)
+logger.info(f"Wrapped model with DDP: {r}")
 
 matryoshka_dim = 768
 
