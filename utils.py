@@ -14,7 +14,7 @@ import loralib as lora
 from dataset import init_dataset, build_mistral_instruct_dataset
 from finetune.args import TrainArgs
 from finetune.distributed import get_rank, get_world_size
-from finetune.wrapped_model import PARALLEL_MODEL
+from finetune.wrapped_model import build_model, PARALLEL_MODEL
 
 logger = logging.getLogger(__name__)
 

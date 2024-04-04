@@ -13,7 +13,7 @@ from loss import loss_fn
 from model import RagModel
 from torch.distributed.fsdp import MixedPrecision
 from finetune.checkpointing import save_checkpoint
-from finetune.wrapped_model import build_model, load_initial_model
+from finetune.wrapped_model import load_initial_model
 from finetune.args import TrainArgs
 from finetune.utils import TrainState, logged_closing, set_random_seed
 from utils import (
