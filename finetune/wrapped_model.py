@@ -149,6 +149,4 @@ def load_initial_model(
         model_state_dict = torch.load(this_path, map_location="cpu")
         model.module.load_state_dict(model_state_dict)
     else:
-        model_state_dict = torch.load(this_path)
-        model.load_state_dict(model_state_dict)
-        # raise TypeError(model)
+        raise TypeError(model)

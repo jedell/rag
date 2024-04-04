@@ -11,10 +11,16 @@ from torch.utils.data import DataLoader, DistributedSampler
 import transformers
 from transformers import AutoTokenizer
 import loralib as lora
+from transformers import AutoTokenizer, AutoModel
+from pathlib import Path
+from model import RagModel
 from dataset import init_dataset, build_mistral_instruct_dataset
 from finetune.args import TrainArgs
 from finetune.distributed import get_rank, get_world_size
 from finetune.wrapped_model import build_model, PARALLEL_MODEL
+from torch.distributed.fsdp import MixedPrecision
+import torch.nn.parallel as torch_ddp
+import torch.distributed.fsdp.wrap as torch_wrap
 
 logger = logging.getLogger(__name__)
 
@@ -51,7 +57,7 @@ def setup_data(
 
     return dataloader, dm['train']
 
-def setup_model(args: TrainArgs):
+def setup_model(args: TrainArgs, index):
 
     gtokenizer = AutoTokenizer.from_pretrained('mistralai/Mistral-7B-Instruct-v0.2', model_max_length=8192)
     rtokenizer = AutoTokenizer.from_pretrained('bert-base-uncased', model_max_length=8192)
@@ -66,8 +72,8 @@ def setup_model(args: TrainArgs):
         rotary_scaling_factor=2
     )
 
-    model = RagModel(g, r, gtokenizer, rtokenizer, ind)
-    model.to(device)
+    model = RagModel(g, r, gtokenizer, rtokenizer, index)
+    # model.to(device)
 
     ddp_params = {
         "mixed_precision": MixedPrecision(

@@ -30,6 +30,8 @@ from finetune.distributed import (
     set_device,
 )
 
+log = logging.getLogger(__name__)
+
 def train():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     generator_path = "_model"
@@ -51,11 +53,11 @@ def train():
 
     matryoshka_dim = 768
 
-    ind = init_index(matryoshka_dim, "index/dune.index")
+    index = init_index(matryoshka_dim, "index/dune.index")
     documents_path = "data/chunks"
     documents = load_documents(documents_path)
 
-    model = setup_model(args)
+    model = setup_model(args, index)
 
     dataloader, train_ds = setup_data(
         model.module.generator_tokenizer,
@@ -111,13 +113,14 @@ def train():
         pct_start=0.5,
     )
 
-    load_initial_model(model.module.generator, args.initial_model_path)
+    print(f"Loading initial model from {args.initial_model_path}")
+    load_initial_model(model, args.initial_model_path)
 
     model.train()
 
     torch.cuda.empty_cache()
 
-
+    epochs_run = 0
     # Training loop  
     for epoch in range(epochs_run, num_epochs):
 
@@ -201,7 +204,7 @@ def train():
                 "memory/reserved": torch.cuda.memory_reserved() / 1024**3,
             })
             # log epcoch,percent done, loss
-            logger.info(
+            log.info(
                 f"Epoch {epoch}. Percent done: {100 * epochs_run / num_epochs:.2f}. Loss: {avg_loss:.4f}"
             )
 

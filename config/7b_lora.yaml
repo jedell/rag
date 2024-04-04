@@ -3,7 +3,7 @@ data:
   instruct_data: "" # change me
   instruct:
     add_flag: true
-initial_model_path: "_model" # change me
+initial_model_path: "_model/mistral-7B-v0.1" # change me
 log_freq: 1
 max_norm: 1
 max_steps: 10
