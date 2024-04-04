@@ -1,5 +1,4 @@
 from mistral.model import Transformer as Mistral
-from mistral.tokenizer import Tokenizer
 from generate import generate
 from retriever.index import init_index, build_index
 from transformers import AutoModel, AutoTokenizer
