@@ -56,26 +56,23 @@ def build_model_ddp(
             buffer_dtype=torch.bfloat16,
         ),
     }
-    model = Transformer(args=model_args, checkpoint=train_args.checkpoint)
+    with torch_wrap.enable_wrap(
+        wrapper_cls=torch_ddp.DistributedDataParallel, **ddp_params
+    ):
+        model = Transformer(args=model_args, checkpoint=train_args.checkpoint)
+
+        # only finetune LoRA parameters and freeze before wrapping
+        for name, param in model.named_parameters():
+            if "lora" in name or "norm" in name:
+                param.requires_grad = True
+            else:
+                param.requires_grad = False
+
+        model = torch_wrap.wrap(model)
+
+    assert isinstance(model, torch_ddp.DistributedDataParallel)
+    logger.info(f"Wrapped model with DDP: {model}")
     return model
-
-    # with torch_wrap.enable_wrap(
-    #     wrapper_cls=torch_ddp.DistributedDataParallel, **ddp_params
-    # ):
-    #     model = Transformer(args=model_args, checkpoint=train_args.checkpoint)
-
-    #     # only finetune LoRA parameters and freeze before wrapping
-    #     for name, param in model.named_parameters():
-    #         if "lora" in name or "norm" in name:
-    #             param.requires_grad = True
-    #         else:
-    #             param.requires_grad = False
-
-    #     model = torch_wrap.wrap(model)
-
-    # assert isinstance(model, torch_ddp.DistributedDataParallel)
-    # logger.info(f"Wrapped model with DDP: {model}")
-    # return model
 
 
 def build_model_fsdp(

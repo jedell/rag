@@ -17,7 +17,7 @@ from model import RagModel
 from dataset import init_dataset, build_mistral_instruct_dataset
 from finetune.args import TrainArgs
 from finetune.distributed import get_rank, get_world_size
-from finetune.wrapped_model import build_model, PARALLEL_MODEL
+from finetune.wrapped_model import build_model, PARALLEL_MODEL, load_initial_model
 from torch.distributed.fsdp import MixedPrecision
 import torch.nn.parallel as torch_ddp
 import torch.distributed.fsdp.wrap as torch_wrap
@@ -42,8 +42,8 @@ def setup_data(
         dataset=dm['train'],
         num_replicas=world_size,
         rank=rank,
-        shuffle=shuffle,
         seed=0,
+        shuffle=shuffle,
         drop_last=True,
     )
     dataloader = DataLoader(
@@ -53,6 +53,8 @@ def setup_data(
         sampler=sampler,
         num_workers=num_workers,
         pin_memory=pin_memory,
+        generator=torch.Generator(device='cuda'),
+        shuffle=shuffle,
     )
 
     return dataloader, dm['train']
@@ -64,6 +66,8 @@ def setup_model(args: TrainArgs, index):
     gtokenizer.pad_token = gtokenizer.eos_token
 
     g = build_model(folder=Path('config'), train_args=args)
+    print(f"Loading initial model from {args.initial_model_path}")
+    load_initial_model(g, args.initial_model_path)
 
     r = AutoModel.from_pretrained(
         'nomic-ai/nomic-embed-text-v1.5',
@@ -73,7 +77,6 @@ def setup_model(args: TrainArgs, index):
     )
 
     model = RagModel(g, r, gtokenizer, rtokenizer, index)
-    # model.to(device)
 
     ddp_params = {
         "mixed_precision": MixedPrecision(
@@ -86,12 +89,6 @@ def setup_model(args: TrainArgs, index):
     with torch_wrap.enable_wrap(
             wrapper_cls=torch_ddp.DistributedDataParallel, **ddp_params
         ):
-        # only finetune LoRA parameters and freeze before wrapping
-        for name, param in model.generator.named_parameters():
-            if "lora" in name or "norm" in name:
-                param.requires_grad = True
-            else:
-                param.requires_grad = False
 
         model = torch_wrap.wrap(model)
 

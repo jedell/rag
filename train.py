@@ -13,7 +13,6 @@ from loss import loss_fn
 from model import RagModel
 from torch.distributed.fsdp import MixedPrecision
 from finetune.checkpointing import save_checkpoint
-from finetune.wrapped_model import load_initial_model
 from finetune.args import TrainArgs
 from finetune.utils import TrainState, logged_closing, set_random_seed
 from utils import (
@@ -37,7 +36,7 @@ def train():
     generator_path = "_model"
 
     batch_size = 1
-    top_k = 1
+    top_k = 2
 
     args: TrainArgs = TrainArgs.load(Path('config', '7b_lora.yaml'), drop_extra_fields=False)
     args.num_microbatches = batch_size * top_k
@@ -64,7 +63,7 @@ def train():
         model.module.retriever_tokenizer,
         "data/dune_mistral_instruct.jsonl",
         batch_size,
-        True,
+        False,
         rank=get_rank(),
         world_size=get_world_size()
     )
@@ -113,9 +112,6 @@ def train():
         pct_start=0.5,
     )
 
-    print(f"Loading initial model from {args.initial_model_path}")
-    load_initial_model(model, args.initial_model_path)
-
     model.train()
 
     torch.cuda.empty_cache()
@@ -141,12 +137,12 @@ def train():
             retriever_attn_mask = retriever_attn_mask.cuda(non_blocking=True)
 
             # retrieve
-            context_input_ids, context_masks, context_labels, doc_scores = model.retrieve(batch, documents)
+            context_input_ids, context_masks, context_labels, doc_scores = model.module.retrieve(batch, documents)
 
             if torch.distributed.get_rank() == 0:
                 # decode masked tokens only, from context_masks
                 masked_tokens = [token for token, mask in zip(context_labels[0], context_masks[0]) if mask]
-                print(model.generator_tokenizer.decode(masked_tokens))
+                print(model.module.generator_tokenizer.decode(masked_tokens))
             
             context_input_ids = context_input_ids.cuda(non_blocking=True)
             context_masks = context_masks.cuda(non_blocking=True)
@@ -154,7 +150,7 @@ def train():
             seqlens = [len(seq) for seq in context_input_ids]
             context_input_ids = context_input_ids.view(-1)
 
-            logits = model.generator.forward(
+            logits = model.module.generator.forward(
                 input_ids=context_input_ids,
                 seqlens=seqlens,
                 cache=None
