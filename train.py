@@ -18,7 +18,7 @@ from finetune.args import TrainArgs
 from finetune.utils import TrainState, logged_closing, set_random_seed
 from utils import (
     setup_data,
-    setup_model
+    setup_model,
     load_documents,
     Logger
 )
