@@ -17,7 +17,7 @@ logger = logging.getLogger("checkpointing")
 @torch.no_grad()
 def save_checkpoint(
     model: PARALLEL_MODEL,
-    state: TrainState,
+    step: int,
     run_dir: Path,
 ):
     _safe_save(

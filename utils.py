@@ -1,4 +1,5 @@
 import os
+import logging
 from typing import List
 
 import torch
@@ -11,39 +12,98 @@ import transformers
 from transformers import AutoTokenizer
 import loralib as lora
 from dataset import init_dataset, build_mistral_instruct_dataset
+from finetune.args import TrainArgs
+from finetune.distributed import get_rank, get_world_size
+from finetune.wrapped_model import PARALLEL_MODEL
+
+logger = logging.getLogger(__name__)
 
 def setup_data(
     generator_tokenizer: transformers.PreTrainedTokenizer,
     retriever_tokenizer: transformers.PreTrainedTokenizer,
     data_path: str,
     batch_size: int = 16,
-    shuffle: bool = True
+    shuffle: bool = True,
+    rank: int = 0,
+    world_size: int = 1,
+    pin_memory: bool = False,
+    num_workers: int = 0,
 ):
     # dm = init_dataset(generator_tokenizer, retriever_tokenizer, data_path)
     dm = build_mistral_instruct_dataset(data_path, generator_tokenizer, retriever_tokenizer)
 
     sampler = DistributedSampler(
         dataset=dm['train'],
-        num_replicas=1,
-        rank=0,
+        num_replicas=world_size,
+        rank=rank,
         shuffle=shuffle,
         seed=0,
+        drop_last=True,
     )
     dataloader = DataLoader(
         dm['train'],
         batch_size=batch_size,
-        collate_fn=dm['collator']
+        collate_fn=dm['collator'],
+        sampler=sampler,
+        num_workers=num_workers,
+        pin_memory=pin_memory,
     )
 
-    return dataloader, sampler, dm['train']
+    return dataloader, dm['train']
 
+def setup_model(args: TrainArgs):
+
+    gtokenizer = AutoTokenizer.from_pretrained('mistralai/Mistral-7B-Instruct-v0.2', model_max_length=8192)
+    rtokenizer = AutoTokenizer.from_pretrained('bert-base-uncased', model_max_length=8192)
+    gtokenizer.pad_token = gtokenizer.eos_token
+
+    g = build_model(folder=Path('config'), train_args=args)
+
+    r = AutoModel.from_pretrained(
+        'nomic-ai/nomic-embed-text-v1.5',
+        trust_remote_code=True,
+        safe_serialization=True,
+        rotary_scaling_factor=2
+    )
+
+    model = RagModel(g, r, gtokenizer, rtokenizer, ind)
+    model.to(device)
+
+    ddp_params = {
+        "mixed_precision": MixedPrecision(
+            param_dtype=torch.bfloat16,
+            reduce_dtype=torch.float32,
+            buffer_dtype=torch.bfloat16,
+        )
+    }
+
+    with torch_wrap.enable_wrap(
+            wrapper_cls=torch_ddp.DistributedDataParallel, **ddp_params
+        ):
+        # only finetune LoRA parameters and freeze before wrapping
+        for name, param in model.generator.named_parameters():
+            if "lora" in name or "norm" in name:
+                param.requires_grad = True
+            else:
+                param.requires_grad = False
+
+        model = torch_wrap.wrap(model)
+
+    assert isinstance(model, torch_ddp.DistributedDataParallel)
+    logging.info(f"Wrapped model with DDP: {model}")
+
+    train_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    logger.info(f"Rank {get_rank():.0f} has {train_params:,.0f} params to finetune")
+
+    return model
+
+@torch.no_grad()
 def save_checkpoint(
         epoch: int,
         total_epochs: int,
         max_steps_per_epoch: int,
         optimizer: torch.optim.Optimizer,
-        generator: torch.nn.Module,
-        retriever: torch.nn.Module,
+        model: PARALLEL_MODEL,
     ) -> None:
     """
     Checkpoint the state of the recipe. The constructed checkpoint state dict
@@ -67,6 +127,8 @@ def save_checkpoint(
                 "max_steps_per_epoch": max_steps_per_epoch,
             }
         )
+
+    this_model = model.module
 
     # construct state dict with only lora weights
     lora_state_dict = lora.lora_state_dict(generator)
