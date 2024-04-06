@@ -9,9 +9,8 @@ import torch
 from typing import List
 from torch.utils.data import DataLoader, DistributedSampler
 import transformers
-from transformers import AutoTokenizer
 import loralib as lora
-from transformers import AutoTokenizer, AutoModel
+from transformers import AutoTokenizer, AutoModel, BitsAndBytesConfig
 from pathlib import Path
 from model import RagModel
 from dataset import init_dataset, build_mistral_instruct_dataset
@@ -21,6 +20,7 @@ from finetune.wrapped_model import build_model, PARALLEL_MODEL, load_initial_mod
 from torch.distributed.fsdp import MixedPrecision
 import torch.nn.parallel as torch_ddp
 import torch.distributed.fsdp.wrap as torch_wrap
+from peft import prepare_model_for_kbit_training, LoraConfig, get_peft_model
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +35,6 @@ def setup_data(
     pin_memory: bool = False,
     num_workers: int = 0,
 ):
-    # dm = init_dataset(generator_tokenizer, retriever_tokenizer, data_path)
     dm = build_mistral_instruct_dataset(data_path, generator_tokenizer, retriever_tokenizer)
 
     sampler = DistributedSampler(
@@ -65,9 +64,39 @@ def setup_model(args: TrainArgs, index):
     rtokenizer = AutoTokenizer.from_pretrained('bert-base-uncased', model_max_length=8192)
     gtokenizer.pad_token = gtokenizer.eos_token
 
-    g = build_model(folder=Path('config'), train_args=args)
-    print(f"Loading initial model from {args.initial_model_path}")
-    load_initial_model(g, args.initial_model_path)
+    config = transformers.AutoConfig.from_pretrained(
+        'mistralai/Mistral-7B-Instruct-v0.2',
+        trust_remote_code=True,
+        safe_serialization=True,
+    )
+
+    bnb_config = BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_use_double_quant=True,
+        bnb_4bit_quant_type="nf4",
+        bnb_4bit_compute_dtype=torch.bfloat16
+    )
+
+    peft_config = LoraConfig(
+        r=64,
+        lora_alpha=16,
+        lora_dropout=0.1,
+        bias="none",
+        task_type="CAUSAL_LM",
+        target_modules=["q_proj", "k_proj", "v_proj", "o_proj"],
+    )      
+
+    g = transformers.AutoModelForCausalLM.from_pretrained(
+        'mistralai/Mistral-7B-Instruct-v0.2',
+        config=config,
+        quantization_config=bnb_config,
+        trust_remote_code=True,
+        safe_serialization=True,
+    )
+
+    g.gradient_checkpointing_enable()
+    g = prepare_model_for_kbit_training(g)
+    g = get_peft_model(g, peft_config)
 
     r = AutoModel.from_pretrained(
         'nomic-ai/nomic-embed-text-v1.5',

@@ -33,7 +33,6 @@ class DataCollatorForSupervisedDataset(object):
 def _tokenize_fn(
         strings: Sequence[str],
         generator_tokenizer: transformers.PreTrainedTokenizer,
-        retriever_tokenizer: transformers.PreTrainedTokenizer
     ) -> Dict:
     """Tokenize a list of strings."""
     tokenized_list = [
@@ -61,14 +60,21 @@ INST_START = "[INST]"
 INST_END = "[/INST]"
 
 def preprocess(
-    sources: Sequence[str],
-    targets: Sequence[str],
+    samples: Dict,
     generator_tokenizer: transformers.PreTrainedTokenizer,
     retriever_tokenizer: transformers.PreTrainedTokenizer
 ) -> Dict:
     """Preprocess the data by tokenizing."""
+    sources = []
+    targets = []
+    for sample in samples:
+        for interaction in sample['interactions']:
+            if interaction['is_user']:
+                sources.append(interaction['text'])
+        else:
+            targets.append(interaction['text'])
     examples = [f"{INST_START} {s} {INST_END} {t}" for s, t in zip(sources, targets)]
-    examples_tokenized, sources_tokenized = [_tokenize_fn(strings, generator_tokenizer, retriever_tokenizer) for strings in (examples, sources)]
+    examples_tokenized, sources_tokenized = [_tokenize_fn(strings, generator_tokenizer) for strings in (examples, sources)]
     input_ids = examples_tokenized["input_ids"]
     labels = copy.deepcopy(input_ids)
     for label, source_len in zip(labels, sources_tokenized["input_ids_lens"]):
@@ -79,7 +85,9 @@ def preprocess(
         for text in sources
     ]
 
-    return dict(input_ids=input_ids, labels=labels, retriever_inputs=retriever_inputs)
+    context_src = [s['file'] for s in samples]
+
+    return dict(input_ids=input_ids, labels=labels, retriever_inputs=retriever_inputs, context_src=context_src)
 
 class SupervisedDataset(Dataset):
     """Dataset for supervised fine-tuning."""
@@ -172,8 +180,8 @@ class MistralCollator(object):
     retriever_pad_token_id: int
 
     def __call__(self, instances: Sequence[Dict]) -> Tuple:
-        input_ids, labels, mask, retriever_tokens = tuple(
-            [torch.tensor(instance[key]) for instance in instances] for key in ("input_ids", "labels", "mask", "retriever_tokens")
+        input_ids, labels, retriever_tokens = tuple(
+            [torch.tensor(instance[key]) for instance in instances] for key in ("input_ids", "labels", "retriever_tokens")
         )
 
         # pad input_ids and labels
@@ -181,17 +189,18 @@ class MistralCollator(object):
             input_ids, batch_first=True, padding_value=self.generator_pad_token_id
         )
         labels = torch.nn.utils.rnn.pad_sequence(labels, batch_first=True, padding_value=self.generator_pad_token_id)
-        mask = torch.nn.utils.rnn.pad_sequence(mask, batch_first=True, padding_value=False)
         retriever_tokens = torch.nn.utils.rnn.pad_sequence(
             retriever_tokens, batch_first=True, padding_value=self.retriever_pad_token_id
         )
 
+
+        attn_mask = input_ids.ne(self.generator_pad_token_id)
         retriever_attn_mask = retriever_tokens.ne(self.retriever_pad_token_id)
 
         return dict(
             input_ids=input_ids,
             labels=labels,
-            mask=mask,
+            attn_mask=attn_mask,
             retriever_tokens=retriever_tokens,
             retriever_attn_mask=retriever_attn_mask,
             context_src=[instance['context_src'] for instance in instances],
@@ -210,24 +219,9 @@ class MistralInstructDataset(Dataset):
         super(MistralInstructDataset, self).__init__()
         self.instruct_list = self._jload(data_path)
 
-        samples = [tokenize_instruct(s, generator_tokenizer, retriever_tokenizer) for s in self.instruct_list]
+        samples = preprocess(self.instruct_list, generator_tokenizer, retriever_tokenizer)
 
-        data = []
-        for sample in samples:
-            tokens, masks = sample['tokens'], sample['masks'][1:]
-            retriever_tokens, context_src = sample['retriever_tokens'], sample['context_src']
-
-            x, y = tokens[:-1], tokens[1:]
-
-            data.append(dict(
-                input_ids=x,
-                labels=y,
-                mask=masks,
-                retriever_tokens=retriever_tokens,
-                context_src=context_src,
-            ))
-
-        self.data = data
+        self.data = samples
 
 
     def _jload(self, path):
