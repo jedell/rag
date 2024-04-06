@@ -52,8 +52,7 @@ def setup_data(
         sampler=sampler,
         num_workers=num_workers,
         pin_memory=pin_memory,
-        generator=torch.Generator(device='cuda'),
-        shuffle=shuffle,
+        # generator=torch.Generator(device='cuda'),
     )
 
     return dataloader, dm['train']

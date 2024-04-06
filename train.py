@@ -102,9 +102,6 @@ def train():
         weight_decay=weight_decay,
     )
 
-    # Scheduler
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=num_epochs)
-
     lr_scheduler = torch.optim.lr_scheduler.OneCycleLR(
         optimizer,
         max_lr=start_lr,
@@ -127,7 +124,7 @@ def train():
         for step, batch in enumerate(dataloader):
             is_last_step = step == len(dataloader) - 1
 
-            input_ids, labels, mask = batch['input_ids'], batch['labels'], batch['mask']
+            input_ids, labels, attn_mask = batch['input_ids'], batch['labels'], batch['attn_mask']
             retriever_tokens, retriever_attn_mask = batch['retriever_tokens'], batch['retriever_attn_mask']
 
             input_ids = input_ids.cuda(non_blocking=True)
@@ -147,13 +144,11 @@ def train():
             context_input_ids = context_input_ids.cuda(non_blocking=True)
             context_masks = context_masks.cuda(non_blocking=True)
 
-            seqlens = [len(seq) for seq in context_input_ids]
             context_input_ids = context_input_ids.view(-1)
 
-            logits = model.module.generator.forward(
+            logits = model.module.generator(
                 input_ids=context_input_ids,
-                seqlens=seqlens,
-                cache=None
+                labels=labels
             )
             
             # shift

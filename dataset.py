@@ -8,7 +8,7 @@ from torch.utils.data import Dataset
 import transformers
 from retriever.nomic import encode_query
 
-IGNORE_INDEX = -1
+IGNORE_INDEX = -100
 
 @dataclass
 class DataCollatorForSupervisedDataset(object):
@@ -42,6 +42,7 @@ def _tokenize_fn(
             padding="longest",
             max_length=generator_tokenizer.model_max_length,
             truncation=True,
+            add_special_tokens=False
         )
         for text in strings
     ]
@@ -84,7 +85,6 @@ def preprocess(
         encode_query(text, retriever_tokenizer)
         for text in sources
     ]
-
     context_src = [s['file'] for s in samples]
 
     return dict(input_ids=input_ids, labels=labels, retriever_inputs=retriever_inputs, context_src=context_src)
@@ -180,28 +180,30 @@ class MistralCollator(object):
     retriever_pad_token_id: int
 
     def __call__(self, instances: Sequence[Dict]) -> Tuple:
-        input_ids, labels, retriever_tokens = tuple(
-            [torch.tensor(instance[key]) for instance in instances] for key in ("input_ids", "labels", "retriever_tokens")
+        input_ids, labels, retriever_inputs = tuple(
+            [instance[key] for instance in instances] for key in ("input_ids", "labels", "retriever_inputs")
         )
 
         # pad input_ids and labels
         input_ids = torch.nn.utils.rnn.pad_sequence(
             input_ids, batch_first=True, padding_value=self.generator_pad_token_id
         )
-        labels = torch.nn.utils.rnn.pad_sequence(labels, batch_first=True, padding_value=self.generator_pad_token_id)
-        retriever_tokens = torch.nn.utils.rnn.pad_sequence(
-            retriever_tokens, batch_first=True, padding_value=self.retriever_pad_token_id
+        labels = torch.nn.utils.rnn.pad_sequence(labels, batch_first=True, padding_value=IGNORE_INDEX)
+        print(retriever_inputs[0].shape)
+        print(retriever_inputs[1].shape)
+        retriever_inputs = torch.nn.utils.rnn.pad_sequence(
+            retriever_inputs, batch_first=True, padding_value=self.retriever_pad_token_id
         )
 
 
         attn_mask = input_ids.ne(self.generator_pad_token_id)
-        retriever_attn_mask = retriever_tokens.ne(self.retriever_pad_token_id)
+        retriever_attn_mask = retriever_inputs.ne(self.retriever_pad_token_id)
 
         return dict(
             input_ids=input_ids,
             labels=labels,
             attn_mask=attn_mask,
-            retriever_tokens=retriever_tokens,
+            retriever_tokens=retriever_inputs,
             retriever_attn_mask=retriever_attn_mask,
             context_src=[instance['context_src'] for instance in instances],
         )
@@ -221,8 +223,10 @@ class MistralInstructDataset(Dataset):
 
         samples = preprocess(self.instruct_list, generator_tokenizer, retriever_tokenizer)
 
-        self.data = samples
-
+        self.input_ids = samples["input_ids"]
+        self.retriever_inputs = samples["retriever_inputs"]
+        self.labels = samples["labels"]
+        self.context_src = samples["context_src"]
 
     def _jload(self, path):
         f = open(path, 'r')
@@ -231,10 +235,15 @@ class MistralInstructDataset(Dataset):
         return j
 
     def __len__(self):
-        return len(self.data)
+        return len(self.input_ids)
 
     def __getitem__(self, i):
-        return self.data[i]
+        return dict(
+            input_ids=self.input_ids[i],
+            labels=self.labels[i],
+            retriever_inputs=self.retriever_inputs[i],
+            context_src=self.context_src[i]
+        )
 
 def build_mistral_instruct_dataset(
         data_path: str,

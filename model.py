@@ -5,6 +5,7 @@ import numpy as np
 from typing import List
 from retriever.index import get_top_docs
 from retriever.nomic import mean_pooling
+from dataset import IGNORE_INDEX
 
 class RagModel(nn.Module):
     def __init__(
@@ -31,7 +32,7 @@ class RagModel(nn.Module):
         docs: List[List[str]],
         input_ids: torch.Tensor,
         labels: torch.Tensor,
-        masks: torch.Tensor,
+        attn_masks: torch.Tensor,
         n_docs: int
     ):
         context_inputs = {
@@ -49,16 +50,18 @@ class RagModel(nn.Module):
                 doc_tokens = torch.tensor(doc_tokens)
                 doc_mask = torch.tensor([False] * (len(doc_tokens)))
                 
-                assert input_ids[j].shape[0] == labels[j].shape[0] == masks[j].shape[0]
-                context_tokens = torch.cat((doc_tokens, input_ids[j]))
-                context_mask = torch.cat((doc_mask, torch.tensor([False]), masks[j][:-1]))
+                assert input_ids[j].shape[0] == labels[j].shape[0] == attn_masks[j].shape[0]
+                context_input_ids = torch.cat((doc_tokens, input_ids[j]))
+                # ignore index size of doc_tokens cat in front of labels
+                context_labels = torch.cat((torch.tensor([IGNORE_INDEX] * len(doc_tokens)), labels[j]))
+                context_mask = context_input_ids.ne(self.generator_pad_token_id)
 
 
-                assert context_tokens.shape[0] == context_mask.shape[0]
+                assert context_input_ids.shape[0] == context_mask.shape[0] == context_labels.shape[0]
 
-                context_inputs['input_ids'].append(context_tokens[:-1])
-                context_inputs['masks'].append(context_mask[1:])
-                context_inputs['labels'].append(context_tokens[1:])
+                context_inputs['input_ids'].append(context_input_ids)
+                context_inputs['masks'].append(context_mask)
+                context_inputs['labels'].append(context_labels)
             
         # pad sequences with eos token
         for key in context_inputs:
@@ -66,9 +69,15 @@ class RagModel(nn.Module):
                 context_inputs[key] = torch.nn.utils.rnn.pad_sequence(
                     context_inputs[key],
                     batch_first=True,
-                    padding_value=self.generator_tokenizer.pad_token_id
+                    padding_value=IGNORE_INDEX
                 )
-            else:
+            elif key == 'input_ids':
+                context_inputs[key] = torch.nn.utils.rnn.pad_sequence(
+                    context_inputs[key],
+                    batch_first=True,
+                    padding_value=self.generator_pad_token_id
+                )
+            elif key == 'masks':
                 context_inputs[key] = torch.nn.utils.rnn.pad_sequence(
                     context_inputs[key],
                     batch_first=True,
@@ -78,7 +87,7 @@ class RagModel(nn.Module):
         return context_inputs['input_ids'], context_inputs['masks'], context_inputs['labels']
 
     def retrieve(self, batch, documents):
-        input_ids, labels, mask = batch['input_ids'], batch['labels'], batch['mask']
+        input_ids, labels, attn_mask = batch['input_ids'], batch['labels'], batch['attn_mask']
         retriever_inputs, retriever_attn_mask = batch['retriever_tokens'], batch['retriever_attn_mask']
         B = input_ids.shape[0]
 
@@ -112,7 +121,7 @@ class RagModel(nn.Module):
         for indicies in I:
             docs.append([documents[idx] for idx in indicies])
 
-        context_input_ids, context_masks, context_labels = self.process_docs(docs, input_ids, labels, mask, self.top_k)
+        context_input_ids, context_masks, context_labels = self.process_docs(docs, input_ids, labels, attn_mask, self.top_k)
         
         # https://github.com/huggingface/transformers/blob/66ce9593fdb8e340df546ddd0774eb444f17a12c/src/transformers/models/rag/modeling_rag.py#L644
         doc_scores = torch.bmm(
