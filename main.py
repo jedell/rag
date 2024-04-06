@@ -1,41 +1,28 @@
-from mistral.model import Transformer as Mistral
 from generate import generate
 from retriever.index import init_index, build_index
-from transformers import AutoModel, AutoTokenizer
-from pathlib import Path
 from utils import load_documents
+from utils import setup_model
 
 def main(generator_path: str, documents_path: str, index_path: str):
 
     embed_dim = 768
 
-    # generator_tokenizer = Tokenizer(str(Path(generator_path) / "tokenizer.model"))
-    retriever_tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased', model_max_length=8192)
-
-    # generator = Mistral.from_folder(Path(generator_path))
-    retriever = AutoModel.from_pretrained('nomic-ai/nomic-embed-text-v1.5', trust_remote_code=True, safe_serialization=True, rotary_scaling_factor=2)
-
-    # generator.eval()
-    retriever.eval()
-
     index = init_index(embed_dim, index_path)
+    model = setup_model(index)
+    model.eval()
 
     # load documents into index
     documents = load_documents(documents_path)
     print("Chunks len", len(documents))
 
-    build_index(index, documents, retriever, retriever_tokenizer, index_path=index_path)
-    # prompt = "What is the meaning of life?"
+    # build_index(index, documents, retriever, retriever_tokenizer, index_path=index_path)
+    prompt = "What is the meaning of life?"
 
-    # compl, logprobs, context, distance = generate([prompt], 
-    #                           generator, generator_tokenizer, 
-    #                           retriever, retriever_tokenizer, 
-    #                           index, documents)
+    context, compl = model.generate(prompt)
     
-    # print("Context:", context)
-    # print("Prompt:", prompt)
-    # print("Completion:", compl)
-    # print("Distance:", distance)
+    print("Context:", context)
+    print("Prompt:", prompt)
+    print("Completion:", compl)
 
 main("_model", "data/chunks", "index/dune.index")
 

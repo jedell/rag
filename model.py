@@ -3,8 +3,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 from typing import List
-from retriever.index import get_top_docs
-from retriever.nomic import mean_pooling
+from retriever.index import get_top_docs, search
+from retriever.nomic import mean_pooling, encode_query, embed
 from dataset import IGNORE_INDEX
 
 class RagModel(nn.Module):
@@ -16,7 +16,8 @@ class RagModel(nn.Module):
             retriever_tokenizer,
             index,
             matryoshka_dim=768,
-            top_k=5
+            top_k=5,
+            documents=None
         ):
         super().__init__()
         self.generator = generator
@@ -26,6 +27,7 @@ class RagModel(nn.Module):
         self.index = index
         self.matryoshka_dim = matryoshka_dim
         self.top_k = top_k
+        self.documents = documents
 
     def process_docs(
         self,
@@ -85,6 +87,24 @@ class RagModel(nn.Module):
                 )
 
         return context_inputs['input_ids'], context_inputs['masks'], context_inputs['labels']
+    
+    def generate(self, prompt):
+        encoded_query = encode_query(prompt, self.generator_tokenizer)
+        encoded_query = encoded_query.to(self.device)
+        embeded_query = embed(encoded_query, self.retriever)
+
+        D, I = search(self.index, embeded_query, k=self.top_k)
+        context = [self.documents[i] for i in I.tolist()[0]]
+
+        prompt = f"<s> [CONTEXT] {context} [/CONTEXT]\n" 
+        prompt += "[INST]" + prompt + "[/INST]"
+
+        prompt_ids = self.generator_tokenizer.encode(prompt, return_tensors="pt")
+        prompt_ids = prompt_ids.to(self.device)
+
+        output = self.generator.generate(prompt_ids)
+
+        return context, self.generator_tokenizer.decode(output[0], skip_special_tokens=True)
 
     def retrieve(self, batch, documents):
         input_ids, labels, attn_mask = batch['input_ids'], batch['labels'], batch['attn_mask']
