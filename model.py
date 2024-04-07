@@ -28,6 +28,7 @@ class RagModel(nn.Module):
         self.matryoshka_dim = matryoshka_dim
         self.top_k = top_k
         self.documents = documents
+        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     def process_docs(
         self,
@@ -92,17 +93,18 @@ class RagModel(nn.Module):
         encoded_query = encode_query(prompt, self.generator_tokenizer)
         encoded_query = encoded_query.to(self.device)
         embeded_query = embed(encoded_query, self.retriever)
+        embeded_query = embeded_query.to(self.device)
 
-        D, I = search(self.index, embeded_query, k=self.top_k)
-        context = [self.documents[i] for i in I.tolist()[0]]
+        D, I = search(self.index, embeded_query.cpu(), k=1)
+        context = [self.documents[i] for i in I.tolist()[0]][0]
 
-        prompt = f"<s> [CONTEXT] {context} [/CONTEXT]\n" 
-        prompt += "[INST]" + prompt + "[/INST]"
+        full_prompt = f"<s> [CONTEXT] {context} [/CONTEXT]\n" 
+        full_prompt += "[INST]" + prompt + "[/INST]"
 
-        prompt_ids = self.generator_tokenizer.encode(prompt, return_tensors="pt")
+        prompt_ids = self.generator_tokenizer.encode(full_prompt, return_tensors="pt")
         prompt_ids = prompt_ids.to(self.device)
 
-        output = self.generator.generate(prompt_ids)
+        output = self.generator.generate(prompt_ids, max_length=8192)
 
         return context, self.generator_tokenizer.decode(output[0], skip_special_tokens=True)
 

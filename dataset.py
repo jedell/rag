@@ -82,7 +82,7 @@ def preprocess(
         label[:source_len] = IGNORE_INDEX
 
     retriever_inputs = [
-        encode_query(text, retriever_tokenizer)
+        encode_query(text, retriever_tokenizer)['input_ids'].squeeze(0)
         for text in sources
     ]
     context_src = [s['file'] for s in samples]

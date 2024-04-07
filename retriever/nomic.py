@@ -36,8 +36,8 @@ def encode_query(query: str, tokenizer: AutoTokenizer):
     """
     if not query.startswith('search_query:'):
         query = f'search_query: {query}'
-    encoded_query = tokenizer.encode(query, padding=True, truncation=True, return_tensors="pt")
-    return encoded_query.squeeze(0)
+    encoded_query = tokenizer(query, padding=True, truncation=True, return_tensors="pt")
+    return encoded_query
 
 def embed(inputs, retriever, matryoshka_dim=None, eval=True):
     """

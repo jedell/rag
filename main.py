@@ -8,15 +8,16 @@ def main(generator_path: str, documents_path: str, index_path: str):
     embed_dim = 768
 
     index = init_index(embed_dim, index_path)
-    model = setup_model(index)
-    model.eval()
-
-    # load documents into index
+        # load documents into index
     documents = load_documents(documents_path)
     print("Chunks len", len(documents))
 
+    model = setup_model(index, documents)
+    model.eval()
+
+
     # build_index(index, documents, retriever, retriever_tokenizer, index_path=index_path)
-    prompt = "What is the meaning of life?"
+    prompt = "Why did the Fremin decide to follow Paul as their leader?"
 
     context, compl = model.generate(prompt)
     

@@ -57,7 +57,7 @@ def setup_data(
 
     return dataloader, dm['train']
 
-def setup_model(index):
+def setup_model(index, documents):
 
     gtokenizer = AutoTokenizer.from_pretrained('mistralai/Mistral-7B-Instruct-v0.2', model_max_length=8192)
     rtokenizer = AutoTokenizer.from_pretrained('bert-base-uncased', model_max_length=8192)
@@ -87,9 +87,8 @@ def setup_model(index):
 
     g = transformers.AutoModelForCausalLM.from_pretrained(
         'mistralai/Mistral-7B-Instruct-v0.2',
-        # config=config,
-        # quantization_config=bnb_config,
-        # trust_remote_code=True,
+        config=config,
+        quantization_config=bnb_config,
     )
 
     # g.gradient_checkpointing_enable()
@@ -102,8 +101,9 @@ def setup_model(index):
         safe_serialization=True,
         rotary_scaling_factor=2
     )
+    r = r.to(torch.device('cuda'))
 
-    model = RagModel(g, r, gtokenizer, rtokenizer, index)
+    model = RagModel(g, r, gtokenizer, rtokenizer, index, documents=documents)
 
     # ddp_params = {
     #     "mixed_precision": MixedPrecision(
@@ -122,8 +122,8 @@ def setup_model(index):
     # assert isinstance(model, torch_ddp.DistributedDataParallel)
     # logging.info(f"Wrapped model with DDP: {model}")
 
-    train_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    logger.info(f"Rank {get_rank():.0f} has {train_params:,.0f} params to finetune")
+    # train_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    # logger.info(f"Rank {get_rank():.0f} has {train_params:,.0f} params to finetune")
 
     return model
 
