@@ -101,12 +101,12 @@ class RagModel(nn.Module):
         full_prompt = f"<s> [CONTEXT] {context} [/CONTEXT]\n" 
         full_prompt += "[INST]" + prompt + "[/INST]"
 
-        prompt_ids = self.generator_tokenizer.encode(full_prompt, return_tensors="pt")
+        prompt_ids = self.generator_tokenizer(full_prompt, return_tensors="pt")
         prompt_ids = prompt_ids.to(self.device)
 
-        output = self.generator.generate(prompt_ids, max_length=8192)
+        output = self.generator.generate(**prompt_ids, max_length=8192)
 
-        return context, self.generator_tokenizer.decode(output[0], skip_special_tokens=True)
+        return context, self.generator_tokenizer.decode(output['input_ids'][0], skip_special_tokens=True)
 
     def retrieve(self, batch, documents):
         input_ids, labels, attn_mask = batch['input_ids'], batch['labels'], batch['attn_mask']
