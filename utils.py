@@ -13,13 +13,12 @@ import loralib as lora
 from transformers import AutoTokenizer, AutoModel, BitsAndBytesConfig
 from pathlib import Path
 from model import RagModel
-from dataset import init_dataset, build_mistral_instruct_dataset
-from finetune.args import TrainArgs
+from dataset import build_mistral_instruct_dataset
 from finetune.distributed import get_rank, get_world_size
-from finetune.wrapped_model import build_model, PARALLEL_MODEL, load_initial_model
-from torch.distributed.fsdp import MixedPrecision
-import torch.nn.parallel as torch_ddp
+from finetune.wrapped_model import PARALLEL_MODEL
 import torch.distributed.fsdp.wrap as torch_wrap
+import torch.nn.parallel as torch_ddp
+from torch.distributed.fsdp import MixedPrecision
 from peft import prepare_model_for_kbit_training, LoraConfig, get_peft_model
 
 logger = logging.getLogger(__name__)
@@ -52,12 +51,11 @@ def setup_data(
         sampler=sampler,
         num_workers=num_workers,
         pin_memory=pin_memory,
-        # generator=torch.Generator(device='cuda'),
     )
 
     return dataloader, dm['train']
 
-def setup_model(index, documents):
+def setup_model(index, documents, training=True, quantization=False):
 
     gtokenizer = AutoTokenizer.from_pretrained('mistralai/Mistral-7B-Instruct-v0.2', model_max_length=8192)
     rtokenizer = AutoTokenizer.from_pretrained('bert-base-uncased', model_max_length=8192)
@@ -88,12 +86,15 @@ def setup_model(index, documents):
     g = transformers.AutoModelForCausalLM.from_pretrained(
         'mistralai/Mistral-7B-Instruct-v0.2',
         config=config,
-        quantization_config=bnb_config,
+        quantization_config=bnb_config if quantization else None,
     )
 
-    # g.gradient_checkpointing_enable()
-    # g = prepare_model_for_kbit_training(g)
-    # g = get_peft_model(g, peft_config)
+    g.gradient_checkpointing_enable()
+
+    if quantization:
+        g = prepare_model_for_kbit_training(g)
+
+    g = get_peft_model(g, peft_config)
 
     r = AutoModel.from_pretrained(
         'nomic-ai/nomic-embed-text-v1.5',
@@ -101,29 +102,27 @@ def setup_model(index, documents):
         safe_serialization=True,
         rotary_scaling_factor=2
     )
-    r = r.to(torch.device('cuda'))
 
     model = RagModel(g, r, gtokenizer, rtokenizer, index, documents=documents)
 
-    # ddp_params = {
-    #     "mixed_precision": MixedPrecision(
-    #         param_dtype=torch.bfloat16,
-    #         reduce_dtype=torch.float32,
-    #         buffer_dtype=torch.bfloat16,
-    #     )
-    # }
+    ddp_params = {
+        "mixed_precision": MixedPrecision(
+            param_dtype=torch.bfloat16,
+            reduce_dtype=torch.float32,
+            buffer_dtype=torch.bfloat16,
+        ),
+    }
 
-    # with torch_wrap.enable_wrap(
-    #         wrapper_cls=torch_ddp.DistributedDataParallel, **ddp_params
-    #     ):
+    with torch_wrap.enable_wrap(
+        wrapper_cls=torch_ddp.DistributedDataParallel, **ddp_params
+    ):
+        model = torch_wrap.wrap(model)
 
-    #     model = torch_wrap.wrap(model)
+    assert isinstance(model, torch_ddp.DistributedDataParallel)
+    logger.info(f"Wrapped model with DDP: {model}")
 
-    # assert isinstance(model, torch_ddp.DistributedDataParallel)
-    # logging.info(f"Wrapped model with DDP: {model}")
-
-    # train_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    # logger.info(f"Rank {get_rank():.0f} has {train_params:,.0f} params to finetune")
+    train_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    logger.info(f"Rank {get_rank():.0f} has {train_params:,.0f} params to finetune")
 
     return model
 
@@ -158,15 +157,17 @@ def save_checkpoint(
             }
         )
 
-    this_model = model.module
+    this_model = model
+    if isinstance(model, torch.nn.DataParallel):
+        this_model = model.module
 
     # construct state dict with only lora weights
-    lora_state_dict = lora.lora_state_dict(generator)
+    lora_state_dict = lora.lora_state_dict(this_model.generator)
 
     ckpt_dict.update({"generator": lora_state_dict})
     
     # save retriever
-    retriever_state_dict = {k: v.cpu() for k, v in retriever.state_dict().items()}
+    retriever_state_dict = {k: v.cpu() for k, v in this_model.retriever.state_dict().items()}
     ckpt_dict.update({"retriever": retriever_state_dict})
 
 

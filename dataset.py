@@ -189,8 +189,7 @@ class MistralCollator(object):
             input_ids, batch_first=True, padding_value=self.generator_pad_token_id
         )
         labels = torch.nn.utils.rnn.pad_sequence(labels, batch_first=True, padding_value=IGNORE_INDEX)
-        print(retriever_inputs[0].shape)
-        print(retriever_inputs[1].shape)
+  
         retriever_inputs = torch.nn.utils.rnn.pad_sequence(
             retriever_inputs, batch_first=True, padding_value=self.retriever_pad_token_id
         )

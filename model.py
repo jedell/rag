@@ -51,13 +51,12 @@ class RagModel(nn.Module):
                     add_special_tokens=False
                 )
                 doc_tokens = torch.tensor(doc_tokens)
-                doc_mask = torch.tensor([False] * (len(doc_tokens)))
                 
                 assert input_ids[j].shape[0] == labels[j].shape[0] == attn_masks[j].shape[0]
                 context_input_ids = torch.cat((doc_tokens, input_ids[j]))
                 # ignore index size of doc_tokens cat in front of labels
                 context_labels = torch.cat((torch.tensor([IGNORE_INDEX] * len(doc_tokens)), labels[j]))
-                context_mask = context_input_ids.ne(self.generator_pad_token_id)
+                context_mask = context_input_ids.ne(self.generator_tokenizer.pad_token_id)
 
 
                 assert context_input_ids.shape[0] == context_mask.shape[0] == context_labels.shape[0]
@@ -78,7 +77,7 @@ class RagModel(nn.Module):
                 context_inputs[key] = torch.nn.utils.rnn.pad_sequence(
                     context_inputs[key],
                     batch_first=True,
-                    padding_value=self.generator_pad_token_id
+                    padding_value=self.generator_tokenizer.pad_token_id
                 )
             elif key == 'masks':
                 context_inputs[key] = torch.nn.utils.rnn.pad_sequence(
@@ -106,12 +105,15 @@ class RagModel(nn.Module):
 
         output = self.generator.generate(**prompt_ids, max_length=8192)
 
-        return context, self.generator_tokenizer.decode(output['input_ids'][0], skip_special_tokens=True)
+        return context, self.generator_tokenizer.decode(output[0], skip_special_tokens=True)
 
     def retrieve(self, batch, documents):
         input_ids, labels, attn_mask = batch['input_ids'], batch['labels'], batch['attn_mask']
         retriever_inputs, retriever_attn_mask = batch['retriever_tokens'], batch['retriever_attn_mask']
         B = input_ids.shape[0]
+
+        retriever_inputs = retriever_inputs.cuda(non_blocking=True)
+        retriever_attn_mask = retriever_attn_mask.cuda(non_blocking=True)
 
         # embed
         embeded_inputs = self.retriever(input_ids=retriever_inputs, attention_mask=retriever_attn_mask)
@@ -135,6 +137,7 @@ class RagModel(nn.Module):
         # get embbeddings from index by I
 
         retrieved_doc_embeds = torch.tensor(vectors_batched)
+        retrieved_doc_embeds = retrieved_doc_embeds.cuda(non_blocking=True)
 
         # I = (batch_size, top_k), top_k dimension is the document ids
         # assume dataset.get_document(idx) returns tokenized document context ids

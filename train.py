@@ -2,19 +2,12 @@ import logging
 import fire
 import torch
 import torch.distributed as dist
-from torch.distributed import barrier
-import torch.nn.parallel as torch_ddp
-import torch.distributed.fsdp.wrap as torch_wrap
-from transformers import AdamW
-from transformers import AutoTokenizer, AutoModel
 from pathlib import Path
 from retriever.index import init_index
 from loss import loss_fn
-from model import RagModel
-from torch.distributed.fsdp import MixedPrecision
 from finetune.checkpointing import save_checkpoint
 from finetune.args import TrainArgs
-from finetune.utils import TrainState, logged_closing, set_random_seed
+from finetune.utils import set_random_seed
 from utils import (
     setup_data,
     setup_model,
@@ -32,11 +25,8 @@ from finetune.distributed import (
 log = logging.getLogger(__name__)
 
 def train():
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    generator_path = "_model"
-
-    batch_size = 1
-    top_k = 2
+    batch_size = 4
+    top_k = 5
 
     args: TrainArgs = TrainArgs.load(Path('config', '7b_lora.yaml'), drop_extra_fields=False)
     args.num_microbatches = batch_size * top_k
@@ -48,15 +38,13 @@ def train():
 
     our_initialize_model_parallel("nccl", args.n_replica)
 
-    barrier()
-
     matryoshka_dim = 768
 
     index = init_index(matryoshka_dim, "index/dune.index")
     documents_path = "data/chunks"
     documents = load_documents(documents_path)
 
-    model = setup_model(index)
+    model = setup_model(index, documents, training=True)
 
     dataloader, train_ds = setup_data(
         model.module.generator_tokenizer,
@@ -95,7 +83,7 @@ def train():
 
     # Optimizers
     optimizer = torch.optim.AdamW(
-        model.module.parameters(),
+        model.parameters(),
         lr=start_lr,
         betas=(0.9, 0.95),
         eps=1e-08,
@@ -110,6 +98,7 @@ def train():
     )
 
     model.train()
+    dist.barrier()
 
     torch.cuda.empty_cache()
 
@@ -129,26 +118,19 @@ def train():
 
             input_ids = input_ids.cuda(non_blocking=True)
             labels = labels.cuda(non_blocking=True)
-            mask = mask.cuda(non_blocking=True)
+            attn_mask = attn_mask.cuda(non_blocking=True)
             retriever_tokens = retriever_tokens.cuda(non_blocking=True)
             retriever_attn_mask = retriever_attn_mask.cuda(non_blocking=True)
 
             # retrieve
             context_input_ids, context_masks, context_labels, doc_scores = model.module.retrieve(batch, documents)
-
-            if torch.distributed.get_rank() == 0:
-                # decode masked tokens only, from context_masks
-                masked_tokens = [token for token, mask in zip(context_labels[0], context_masks[0]) if mask]
-                print(model.module.generator_tokenizer.decode(masked_tokens))
             
             context_input_ids = context_input_ids.cuda(non_blocking=True)
             context_masks = context_masks.cuda(non_blocking=True)
 
-            context_input_ids = context_input_ids.view(-1)
-
             logits = model.module.generator(
                 input_ids=context_input_ids,
-                labels=labels
+                labels=context_labels
             )
             
             # shift
@@ -180,7 +162,7 @@ def train():
         lr_scheduler.step()
 
         loss_item = loss.item()
-        avg_loss = avg_aggregate(loss_item)
+        avg_loss = avg_aggregate(loss_item) 
 
         # Logging, validation, saving models, etc.
         if epochs_run % log_freq == 0:
