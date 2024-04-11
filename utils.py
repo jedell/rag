@@ -55,7 +55,7 @@ def setup_data(
 
     return dataloader, dm['train']
 
-def setup_model(index, documents, training=True, quantization=False):
+def setup_model(index, documents, training=True, quantization=False, top_k=1):
 
     gtokenizer = AutoTokenizer.from_pretrained('mistralai/Mistral-7B-Instruct-v0.2', model_max_length=8192)
     rtokenizer = AutoTokenizer.from_pretrained('bert-base-uncased', model_max_length=8192)
@@ -104,7 +104,7 @@ def setup_model(index, documents, training=True, quantization=False):
     )
     r.to(torch.device("cuda"))
 
-    model = RagModel(g, r, gtokenizer, rtokenizer, index, documents=documents)
+    model = RagModel(g, r, gtokenizer, rtokenizer, index, documents=documents, top_k=top_k)
 
     ddp_params = {
         "mixed_precision": MixedPrecision(

@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from typing import Optional
 
-def marginalize(seq_logits, doc_scores, n_docs=None):
+def marginalize(seq_logits, doc_scores, n_docs=1):
     n_docs = n_docs if n_docs is not None else 1
 
     # RAG-token marginalization
@@ -32,12 +32,12 @@ def compute_loss_with_mask(
 def loss_fn(logits, target, target_mask, doc_scores, reduce_loss=True, epsilon=0.1, n_docs=None):
     
     # ce_loss = compute_loss_with_mask(logits, target, target_mask)
+    print(logits.shape, target.shape, target_mask.shape, doc_scores.shape)
 
     def _mask_pads(ll, smooth_obj, mask):
-        mask = ~mask
-        if mask.any():
-            ll.masked_fill_(mask, 0.0)
-            smooth_obj.masked_fill_(mask, 0.0)
+        # if mask.any():
+        ll.masked_fill_(mask, 0.0)
+        smooth_obj.masked_fill_(mask, 0.0)
         return ll.squeeze(-1), smooth_obj.squeeze(-1)
 
     rag_logprobs = marginalize(logits, doc_scores, n_docs)
@@ -45,6 +45,7 @@ def loss_fn(logits, target, target_mask, doc_scores, reduce_loss=True, epsilon=0
     target = target.unsqueeze(-1)
     assert target.dim() == rag_logprobs.dim()
 
+    print(target.shape, rag_logprobs.shape)
     ll = rag_logprobs.gather(dim=-1, index=target)
     smooth_obj = rag_logprobs.sum(dim=-1, keepdim=True)  # total sum of all (normalised) logits
     ll, smooth_obj = _mask_pads(ll, smooth_obj, target_mask)

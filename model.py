@@ -134,6 +134,8 @@ class RagModel(nn.Module):
             vectors_batched.extend(retrieved_doc_embeds)
         I = np.array(I)
         vectors_batched = np.array(vectors_batched)
+        print('vectors_batched', vectors_batched.shape)
+        print('I', I.shape)
         # get embbeddings from index by I
 
         retrieved_doc_embeds = torch.tensor(vectors_batched)

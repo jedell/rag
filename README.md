@@ -41,7 +41,7 @@ https://github.com/david-smejkal/wiki2txt
 # RUN
 build index on data
 
-CUDA_VISIBLE_DEVICES=0,1 torchrun --nproc-per-node 2 --master_port $RANDOM -m train
+PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:512 CUDA_VISIBLE_DEVICES=0,1 torchrun --nproc-per-node 2 --master_port $RANDOM -m train
 wget -c https://models.mistralcdn.com/mistral-7b-v0-2/Mistral-7B-v0.2-Instruct.tar
 tar -xf Mistral-7B-v0.2-Instruct.tar
 
