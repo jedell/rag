@@ -45,6 +45,9 @@ CUDA_VISIBLE_DEVICES=0,1 torchrun --nproc-per-node 2 --master_port $RANDOM -m tr
 wget -c https://models.mistralcdn.com/mistral-7b-v0-2/Mistral-7B-v0.2-Instruct.tar
 tar -xf Mistral-7B-v0.2-Instruct.tar
 
+CUDA_VISIBLE_DEVICES=0 torchrun --nproc-per-node 1 --master_port $RANDOM -m train
+pip install fire torch==2.1.0 xformers==0.0.22.post7 faiss-cpu bitsandbytes simple_parsing transformers loralib peft einops wandb
+
 File "/workspace/rag/finetune/lora/linear.py", line 113, in _load_from_state_dict
     assert self.quantized, "Provided checkpoint is already quantized"
 AssertionError: Provided checkpoint is already quantized

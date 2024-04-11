@@ -44,7 +44,7 @@ def train():
     documents_path = "data/chunks"
     documents = load_documents(documents_path)
 
-    model = setup_model(index, documents, training=True)
+    model = setup_model(index, documents, training=True, quantization=True)
 
     dataloader, train_ds = setup_data(
         model.module.generator_tokenizer,

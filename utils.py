@@ -102,6 +102,7 @@ def setup_model(index, documents, training=True, quantization=False):
         safe_serialization=True,
         rotary_scaling_factor=2
     )
+    r.to(torch.device("cuda"))
 
     model = RagModel(g, r, gtokenizer, rtokenizer, index, documents=documents)
 
