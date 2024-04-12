@@ -136,7 +136,7 @@ def train():
             )
             
             logits = out.logits
-
+            print("out.loss", out.loss)
             # shift
             # logits = logits[..., :-1, :].contiguous()
             # labels = labels[..., 1:].contiguous()

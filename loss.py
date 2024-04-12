@@ -7,10 +7,10 @@ def marginalize(seq_logits, doc_scores, n_docs=1):
     n_docs = n_docs if n_docs is not None else 1
 
     # RAG-token marginalization
-    seq_logprobs = nn.functional.log_softmax(seq_logits, dim=-1).view(
-        seq_logits.shape[0] // n_docs, n_docs, -1, seq_logits.size(-1)
-    )
+    seq_logprobs = nn.functional.log_softmax(seq_logits, dim=-1)
     doc_logprobs = torch.log_softmax(doc_scores, dim=1)
+    doc_logprobs = doc_logprobs.view(-1)
+    print(seq_logprobs.shape, doc_logprobs.shape)
     log_prob_sum = seq_logprobs + doc_logprobs.unsqueeze(-1).unsqueeze(-1)
     return torch.logsumexp(log_prob_sum, dim=1)
 
@@ -31,36 +31,25 @@ def compute_loss_with_mask(
 
 def loss_fn(logits, target, target_mask, doc_scores, reduce_loss=True, epsilon=0.1, n_docs=None):
     
-    # ce_loss = compute_loss_with_mask(logits, target, target_mask)
-    print(logits.shape, target.shape, target_mask.shape, doc_scores.shape)
+    shift_logits = logits[..., :-1, :].contiguous()
+    shift_labels = target[..., 1:].contiguous()
 
-    def _mask_pads(ll, smooth_obj, mask):
-        # if mask.any():
-        ll.masked_fill_(mask, 0.0)
-        smooth_obj.masked_fill_(mask, 0.0)
-        return ll.squeeze(-1), smooth_obj.squeeze(-1)
+    shift_logits = shift_logits.view(-1, 32000) # TODO move hardcoded value
+    shift_labels = shift_labels.view(-1)
+    shift_labels = shift_labels.to(shift_logits.device)
 
-    rag_logprobs = marginalize(logits, doc_scores, n_docs)
+    # TODO marginalize over doc_scores
+    # doc_scores = doc_scores.view(-1, 2)
+    # doc_scores = doc_scores.to(shift_logits.device)
+    # doc_scores = doc_scores.view(-1)
 
-    target = target.unsqueeze(-1)
-    assert target.dim() == rag_logprobs.dim()
+    # shift_logits = shift_logits + doc_scores.unsqueeze(-1)
+    # print(shift_logits.shape, shift_labels.shape)
 
-    print(target.shape, rag_logprobs.shape)
-    ll = rag_logprobs.gather(dim=-1, index=target)
-    smooth_obj = rag_logprobs.sum(dim=-1, keepdim=True)  # total sum of all (normalised) logits
-    ll, smooth_obj = _mask_pads(ll, smooth_obj, target_mask)
-    ll = ll.sum(1)  # sum over tokens
-    smooth_obj = smooth_obj.sum(1)
+    cross_entropy_fn = nn.CrossEntropyLoss()
 
-    nll_loss = -ll
-    smooth_loss = -smooth_obj
+    loss = cross_entropy_fn(shift_logits, shift_labels)
 
-    if reduce_loss:
-        nll_loss = nll_loss.sum()
-        smooth_loss = smooth_loss.sum()
+    print(loss)
 
-    eps_i = epsilon / rag_logprobs.size(-1)
-    rag_loss = (1.0 - epsilon) * nll_loss + eps_i * smooth_loss
-
-    loss = rag_loss # + ce_loss
     return loss
