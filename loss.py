@@ -39,12 +39,12 @@ def loss_fn(logits, target, target_mask, doc_scores, reduce_loss=True, epsilon=0
     shift_labels = shift_labels.to(shift_logits.device)
 
     # TODO marginalize over doc_scores
-    # doc_scores = doc_scores.view(-1, 2)
-    # doc_scores = doc_scores.to(shift_logits.device)
-    # doc_scores = doc_scores.view(-1)
+    doc_scores = doc_scores.view(-1, 2)
+    doc_scores = doc_scores.to(shift_logits.device)
+    doc_scores = doc_scores.view(-1)
 
-    # shift_logits = shift_logits + doc_scores.unsqueeze(-1)
-    # print(shift_logits.shape, shift_labels.shape)
+    shift_logits = shift_logits + doc_scores.unsqueeze(-1)
+    print(shift_logits.shape, shift_labels.shape)
 
     cross_entropy_fn = nn.CrossEntropyLoss()
 

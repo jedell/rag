@@ -46,5 +46,4 @@ wget -c https://models.mistralcdn.com/mistral-7b-v0-2/Mistral-7B-v0.2-Instruct.t
 tar -xf Mistral-7B-v0.2-Instruct.tar
 
 PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:512 CUDA_VISIBLE_DEVICES=0 torchrun --nproc-per-node 1 --master_port $RANDOM -m train
-pip install fire torch==2.1.0 xformers==0.0.22.post7 faiss-cpu bitsandbytes simple_parsing transformers loralib peft einops wandb
-
+pip install fire torch==2.1.0 xformers==0.0.22.post7 faiss-cpu bitsandbytes simple_parsing transformers loralib peft einops wandb sentencepiece
